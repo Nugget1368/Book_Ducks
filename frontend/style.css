@@ -1,0 +1,164 @@
+.raster-bg, main, body {
+  background-image: radial-gradient(#e63946 10%, transparent 11%);
+  background-size: 12px 12px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  transition: 0.2s;
+}
+
+main, body {
+  background-color: #f1c40f;
+  min-height: 100vh;
+  font-family: "Bangers", cursive;
+}
+
+body > header {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #e63946;
+  box-shadow: 0px 4px #000;
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+body > header * {
+  margin: 0;
+  height: 100%;
+}
+body > header h1 {
+  padding: 1rem;
+}
+body > header div {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  box-sizing: border-box;
+  padding: 1rem;
+  gap: 1rem;
+}
+body > header div a {
+  display: flex;
+  flex-flow: row;
+  justify-content: flex-start;
+  align-items: flex-end;
+  box-sizing: border-box;
+  height: 100%;
+  color: #fff;
+  text-decoration: none;
+  border-bottom: 4px transparent solid;
+  gap: 0.5rem;
+  padding: 0px 1rem;
+}
+body > header div a > * {
+  cursor: pointer;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+body > header div a span {
+  font-size: 1.5rem !important;
+}
+body > header div a label {
+  font-size: 1rem;
+}
+body > header div a:hover {
+  border-color: #970a15;
+}
+
+footer {
+  background-color: #2980b9;
+  color: #fff;
+  min-height: 250px;
+  border-top: #000 4px solid;
+}
+
+section {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  box-sizing: border-box;
+  background-color: rgba(255, 255, 255, 0.4588235294);
+  padding: 2rem;
+  margin: 3rem auto;
+  text-align: center;
+  position: relative;
+}
+
+.speech-bubble {
+  background: #fff;
+  border: 4px solid #000;
+  padding: 1rem;
+  display: inline-block;
+  position: relative;
+  margin: 1rem 0;
+  font-style: italic;
+}
+.speech-bubble::after {
+  content: "";
+  position: absolute;
+  bottom: -20px;
+  left: 30px;
+  width: 0;
+  height: 0;
+  border: 10px solid transparent;
+  border-top-color: #000;
+}
+
+.button {
+  background-color: #2980b9;
+  color: #fff;
+  padding: 1rem 2rem;
+  border: 4px solid #000;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 1.2rem;
+  box-shadow: 4px 4px 0 #000;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+}
+.button:hover {
+  background-color: #e63946;
+  transform: scale(1.05);
+  box-shadow: 6px 6px 0 #000;
+}
+
+article.book {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  text-align: start;
+  background-color: #fff;
+  border: 4px solid #000;
+  box-shadow: 6px 6px 0 #000;
+}
+article.book img {
+  width: 150px;
+  height: 225px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  margin: 0;
+}
+article.book > div {
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+  align-items: stretch;
+  padding: 1rem;
+}
+article.book h2, article.book h3, article.book p {
+  margin: 0;
+}
+article.book h3, article.book p {
+  color: #3e3a3a;
+}/*# sourceMappingURL=style.css.map */

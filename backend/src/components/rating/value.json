@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_rating_values",
+  "info": {
+    "displayName": "value",
+    "icon": "star",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "value": {
+      "type": "decimal",
+      "max": 10,
+      "min": 0,
+      "default": 0
+    }
+  }
+}

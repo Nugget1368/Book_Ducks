@@ -1,0 +1,25 @@
+{
+  "kind": "singleType",
+  "collectionName": "book_stores",
+  "info": {
+    "singularName": "book-store",
+    "pluralName": "book-stores",
+    "displayName": "Book Store"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "Header": {
+      "type": "string"
+    },
+    "theme": {
+      "type": "enumeration",
+      "enum": [
+        "classic",
+        "blue",
+        "red"
+      ]
+    }
+  }
+}

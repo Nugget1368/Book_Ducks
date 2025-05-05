@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "ratings",
+  "info": {
+    "singularName": "rating",
+    "pluralName": "ratings",
+    "displayName": "Rating",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "average": {
+      "type": "decimal",
+      "default": 0,
+      "max": 10,
+      "min": 0
+    },
+    "ratings": {
+      "displayName": "value",
+      "type": "component",
+      "repeatable": true,
+      "component": "rating.value"
+    },
+    "book": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::book.book",
+      "mappedBy": "rating"
+    }
+  }
+}
