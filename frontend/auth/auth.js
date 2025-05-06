@@ -11,22 +11,22 @@ export class Auth {
         localStorage.removeItem(USER_TOKEN);
     }
     static async isAuthenticated() {
-        try{
+        try {
             let response = await axios.get(`${API.getApiUrl()}/users/me`,
                 {
                     headers:
-                    { Authorization: `Bearer ${sessionStorage.getItem(USER_TOKEN)}` }
+                        { Authorization: `Bearer ${sessionStorage.getItem(USER_TOKEN)}` }
                 }
             );
             return response.data;
         }
-        catch(e){
+        catch (e) {
             return false;
         }
     }
 
-    static async register(user){
-        try{
+    static async register(user) {
+        try {
             let response = await axios.post(`${API.getApiUrl()}/auth/local/register`, {
                 email: user.email,
                 username: user.username,
@@ -37,12 +37,25 @@ export class Auth {
                 return true;
             }
         }
-        catch(e){
+        catch (e) {
             return false;
         }
         return false;
     }
-    static async login(){
-
+    static async login(user) {
+        try {
+            const response = await axios.post(`${API.getApiUrl()}/auth/local`, {
+                identifier: user.username ? user.username : user.email,
+                password: user.password
+            });
+            if (response.status === 200) {
+                sessionStorage.setItem("token", response.data.jwt);
+                return true;
+            }
+        }
+        catch (e) {
+            return false;
+        }
+        return false;
     }
 }
