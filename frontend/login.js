@@ -1,5 +1,8 @@
 import { Auth } from "./auth/auth.js";
 import { UserBuilder } from "./builders/userBuilder.js";
+import { Theme } from "./api/theme.js";
+
+await Theme.getTheme();
 
 let span = document.querySelector("#show-register");
 span.addEventListener('click', () => {
