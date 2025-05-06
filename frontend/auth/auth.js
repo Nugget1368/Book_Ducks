@@ -28,6 +28,24 @@ export class Auth {
         return false;
     }
 
+    static async getUsername() {
+        try {
+            let response = await axios.get(`${API.getApiUrl()}/users/me`,
+                {
+                    headers:
+                        { Authorization: `Bearer ${sessionStorage.getItem(USER_TOKEN)}` }
+                }
+            );
+            console.log(response.data);
+            if (response.status === 200)
+                return response.data.username;
+        }
+        catch (e) {
+            return false;
+        }
+        return false;
+    }
+
     static async register(user) {
         try {
             let response = await axios.post(`${API.getApiUrl()}/auth/local/register`, {

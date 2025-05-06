@@ -18,7 +18,7 @@ loginForm.addEventListener('submit', async (e) => {
     let user = builder.build();
     let success = await Auth.login(user);
     if (success) {
-        alert("You have successfully logged in.");
+        window.location.href = "index.html";
     } else {
         console.log("Could not login...");
     }
@@ -35,7 +35,7 @@ registerForm.addEventListener('submit', async (e) => {
     let user = builder.build();
     let success = await Auth.register(user);
     if (success) {
-        alert("You have successfully registered.");
+        window.location.href = "index.html";
     } else {
         console.log("Could not register...");
     }

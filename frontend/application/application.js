@@ -1,8 +1,12 @@
 import { Library } from "../api/library.js";
 import { Factory } from "../builders/factory.js";
+import { Auth } from "../auth/auth.js";
 export class Application {
 
-    async renderPage(){
+    async renderPage() {
+        if (await Auth.isAuthenticated()) {
+            await this.sayHello();
+        }
         let books = await Library.getBooks();
         books.data.forEach(book => {
             let card = Factory.buildBookCard(book);
@@ -10,15 +14,24 @@ export class Application {
         });
     }
 
-    async start(){
+    async start() {
         this.renderPage();
     }
 
-    async login(){
+    async sayHello() {
+        let username = await Auth.getUsername();
+        let header = document.querySelector("main header");
+        let h2 = document.createElement("h2");
+        h2.textContent = `Welcome ${username}!`;
+        h2.classList.add("comic-bubble");
+        header.append(h2);
+    }
+
+    async login() {
 
     }
 
-    async logout(){
+    async logout() {
 
     }
 }
