@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <script type="module" src="login.js"></script>
+    <title>Book Ducks</title>
+</head>
+
+<body>
+    <header>
+        <h1>Book Ducks</h1>
+        <div>
+            <a href="login.html"><span class="material-symbols-outlined">
+                    login
+                </span><label>Logga in</label></a>
+            <a href=""><span class="material-symbols-outlined">
+                    person
+                </span><label>Mina sidor</label></a>
+        </div>
+    </header>
+    <main>
+        <section class="center">
+            <form id="login-form">
+                <h2>Log in</h2>
+                <fieldset>
+                    <div>
+                        <label for="username">Username</label>
+                        <input type="text" placeholder="Username or Email" name="username" id="username">
+                    </div>
+                    <div>
+                        <label for="password">Password</label>
+                        <input type="password" name="password" id="password">
+                    </div>
+                </fieldset>
+                <button type="submit" class="button">Log In</button>
+                <a id="show-register">Don't have an account?</a>
+            </form>
+            <form class="hidden" id="register-form">
+                <h2>Register Account</h2>
+                <fieldset>
+                    <div>
+                        <label for="email">Email</label>
+                        <input type="text" placeholder="Email" name="email" id="email">
+                    </div>
+                    <div>
+                        <label for="username">Username</label>
+                        <input type="text" placeholder="Username" name="username" id="username">
+                    </div>
+                    <div>
+                        <label for="password">Password</label>
+                        <input type="password" name="password" id="password">
+                    </div>
+                </fieldset>
+                <button type="submit" class="button">Register</button>
+            </form>
+        </section>
+    </main>
+    <footer></footer>
+</body>
+
+</html>

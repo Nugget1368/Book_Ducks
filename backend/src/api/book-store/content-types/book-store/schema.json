@@ -4,7 +4,8 @@
   "info": {
     "singularName": "book-store",
     "pluralName": "book-stores",
-    "displayName": "Book Store"
+    "displayName": "Book Store",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -17,8 +18,8 @@
       "type": "enumeration",
       "enum": [
         "classic",
-        "blue",
-        "red"
+        "skyblue",
+        "superred"
       ]
     }
   }
