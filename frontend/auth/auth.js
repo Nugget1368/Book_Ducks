@@ -18,11 +18,14 @@ export class Auth {
                         { Authorization: `Bearer ${sessionStorage.getItem(USER_TOKEN)}` }
                 }
             );
-            return response.data;
+            console.log(response.data);
+            if (response.status === 200)
+                return true;
         }
         catch (e) {
             return false;
         }
+        return false;
     }
 
     static async register(user) {
