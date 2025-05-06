@@ -164,12 +164,12 @@ body > header {
   top: 0;
   z-index: 1000;
 }
+body > header h1 {
+  padding: 1rem;
+}
 body > header * {
   margin: 0;
   height: 100%;
-}
-body > header h1 {
-  padding: 1rem;
 }
 body > header div {
   display: flex;
@@ -224,15 +224,22 @@ section {
   box-sizing: border-box;
   background-color: rgba(255, 255, 255, 0.4588235294);
   padding: 2rem;
-  margin: 3rem auto;
+  margin: 2rem auto;
   text-align: center;
   position: relative;
+  min-height: 70vh;
 }
 section.center {
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
   align-items: stretch;
+}
+section.column {
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .speech-bubble {
@@ -282,6 +289,8 @@ article.book {
   background-color: var(--comic-white);
   border: 4px solid var(--comic-black);
   box-shadow: 6px 6px 0 var(--comic-black);
+  height: -moz-fit-content;
+  height: fit-content;
 }
 article.book img {
   width: 150px;
@@ -388,7 +397,7 @@ form a:hover {
 
 .comic-bubble {
   position: relative;
-  max-width: 300px;
+  max-width: 400px;
   background: var(--comic-white);
   border: 4px solid var(--comic-black);
   border-radius: 20px;

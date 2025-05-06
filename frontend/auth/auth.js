@@ -11,8 +11,6 @@ export class Auth {
         localStorage.removeItem(USER_TOKEN);
     }
     static async isAuthenticated() {
-        if(!sessionStorage.getItem(USER_TOKEN))
-            return false;
         try {
             let response = await axios.get(`${API.getApiUrl()}/users/me`,
                 {
@@ -20,7 +18,6 @@ export class Auth {
                         { Authorization: `Bearer ${sessionStorage.getItem(USER_TOKEN)}` }
                 }
             );
-            console.log(response);
             if (response.status === 200)
                 return true;
         }
@@ -38,7 +35,6 @@ export class Auth {
                         { Authorization: `Bearer ${sessionStorage.getItem(USER_TOKEN)}` }
                 }
             );
-            console.log(response.data);
             if (response.status === 200)
                 return response.data.username;
         }
@@ -46,6 +42,23 @@ export class Auth {
             return false;
         }
         return false;
+    }
+
+    static async getUser(){
+        try {
+            let response = await axios.get(`${API.getApiUrl()}/users/me`,
+                {
+                    headers:
+                        { Authorization: `Bearer ${sessionStorage.getItem(USER_TOKEN)}` }
+                }
+            );
+            if (response.status === 200)
+                return response.data;
+        }
+        catch (e) {
+            return {};
+        }
+        return {};
     }
 
     static async register(user) {
