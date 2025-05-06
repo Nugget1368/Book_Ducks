@@ -2,10 +2,6 @@ import { API } from "./api.js";
 const THEME_KEY = "theme";
 export class Theme {
     static async getTheme() {
-        if(sessionStorage.getItem(THEME_KEY)){
-            document.querySelector("body").setAttribute("theme", sessionStorage.getItem(THEME_KEY));
-            return
-        }
         try {
             let response = await axios.get(API.getApiUrl() + "/book-store");
             if (response.status === 200 && response.data.data.theme != null && response.data.data.theme != undefined) {
