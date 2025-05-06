@@ -25,37 +25,41 @@
         </div>
     </header>
     <main>
-        <form id="login-form">
-            <fieldset>
-                <div>
-                    <label for="username">Username</label>
-                    <input type="text" placeholder="Username or Email" name="username" id="username">
-                </div>
-                <div>
-                    <label for="password">Password</label>
-                    <input type="password" name="password" id="password">
-                </div>
-            </fieldset>
-            <button type="submit" class="button">Log In</button>
-            <span id="show-register">Don't have an account?</span>
-        </form>
-        <form class="hidden" id="register-form">
-            <fieldset>
-                <div>
-                    <label for="email">Email</label>
-                    <input type="text" placeholder="Email" name="email" id="email">
-                </div>
-                <div>
-                    <label for="username">Username</label>
-                    <input type="text" placeholder="Username" name="username" id="username">
-                </div>
-                <div>
-                    <label for="password">Password</label>
-                    <input type="password" name="password" id="password">
-                </div>
-            </fieldset>
-            <button type="submit" class="button">Register</button>
-        </form>
+        <section class="center">
+            <form id="login-form">
+                <h2>Log in</h2>
+                <fieldset>
+                    <div>
+                        <label for="username">Username</label>
+                        <input type="text" placeholder="Username or Email" name="username" id="username">
+                    </div>
+                    <div>
+                        <label for="password">Password</label>
+                        <input type="password" name="password" id="password">
+                    </div>
+                </fieldset>
+                <button type="submit" class="button">Log In</button>
+                <a id="show-register">Don't have an account?</a>
+            </form>
+            <form class="hidden" id="register-form">
+                <h2>Register Account</h2>
+                <fieldset>
+                    <div>
+                        <label for="email">Email</label>
+                        <input type="text" placeholder="Email" name="email" id="email">
+                    </div>
+                    <div>
+                        <label for="username">Username</label>
+                        <input type="text" placeholder="Username" name="username" id="username">
+                    </div>
+                    <div>
+                        <label for="password">Password</label>
+                        <input type="password" name="password" id="password">
+                    </div>
+                </fieldset>
+                <button type="submit" class="button">Register</button>
+            </form>
+        </section>
     </main>
     <footer></footer>
 </body>

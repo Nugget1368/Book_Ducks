@@ -11,8 +11,8 @@ let loginForm = document.querySelector("#login-form");
 console.log(loginForm);
 loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    let username = document.querySelector("#username").value.trim();
-    let password = document.querySelector("#password").value.trim();
+    let username = loginForm.querySelector("#username").value.trim();
+    let password = loginForm.querySelector("#password").value.trim();
     let builder = new UserBuilder();
     builder.setUsername(username).setPassword(password);
     let user = builder.build();
@@ -27,9 +27,9 @@ loginForm.addEventListener('submit', async (e) => {
 let registerForm = document.querySelector("#register-form");
 registerForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    let email = document.querySelector("#email").value.trim();
-    let username = document.querySelector("#username").value.trim();
-    let password = document.querySelector("#password").value.trim();
+    let email = registerForm.querySelector("#email").value.trim();
+    let username = registerForm.querySelector("#username").value.trim();
+    let password = registerForm.querySelector("#password").value.trim();
     let builder = new UserBuilder();
     builder.setEmail(email).setUsername(username).setPassword(password);
     let user = builder.build();

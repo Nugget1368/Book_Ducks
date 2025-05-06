@@ -1,4 +1,5 @@
-.raster-bg, main, body {
+.raster-bg, main,
+body {
   background-image: radial-gradient(#e63946 10%, transparent 11%);
   background-size: 12px 12px;
 }
@@ -12,7 +13,8 @@ body {
   transition: 0.2s;
 }
 
-main, body {
+main,
+body {
   background-color: #f1c40f;
   min-height: 100vh;
   font-family: "Bangers", cursive;
@@ -94,6 +96,12 @@ section {
   text-align: center;
   position: relative;
 }
+section.center {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: stretch;
+}
 
 .speech-bubble {
   background: #fff;
@@ -122,7 +130,7 @@ section {
   border: 4px solid #000;
   text-transform: uppercase;
   font-weight: bold;
-  font-size: 1.2rem;
+  font-size: 1rem;
   box-shadow: 4px 4px 0 #000;
   cursor: pointer;
   transition: all 0.1s ease-in-out;
@@ -157,13 +165,83 @@ article.book > div {
   align-items: stretch;
   padding: 1rem;
 }
-article.book h2, article.book h3, article.book p {
+article.book h2,
+article.book h3,
+article.book p {
   margin: 0;
 }
-article.book h3, article.book p {
+article.book h3,
+article.book p {
   color: #3e3a3a;
 }
 
 .hidden {
   display: none !important;
+}
+
+form {
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 1rem;
+  background-color: #fff;
+  border: 4px solid #000;
+  box-shadow: 6px 6px 0 #000;
+  padding: 1rem;
+  max-width: 600px;
+  flex: 1;
+}
+form label {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 1rem;
+}
+form fieldset {
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 1rem;
+}
+form fieldset div {
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+form label {
+  font-size: 1.5rem;
+}
+form input {
+  font-family: "Comic Sans MS", "Comic Neue", cursive;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border: 3px solid #000;
+  border-radius: 8px;
+  background-color: #fffc00;
+  color: #000;
+  box-shadow: 4px 4px 0 #000;
+  outline: none;
+  transition: all 0.2s ease-in-out;
+}
+form input::-moz-placeholder {
+  color: #333;
+  opacity: 0.7;
+}
+form input::placeholder {
+  color: #333;
+  opacity: 0.7;
+}
+form input:hover {
+  background-color: #fff200;
+  box-shadow: 6px 6px 0 #000;
+}
+form input:focus {
+  background-color: #fff;
+  border-color: #e60012;
+}
+form h2 {
+  font-size: 2rem;
+  margin: 1rem;
 }/*# sourceMappingURL=style.css.map */
