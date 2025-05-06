@@ -35,6 +35,7 @@ export class Auth {
                 username: user.username,
                 password: user.password
             });
+            console.log(response.data);
             if (response.status === 200) {
                 sessionStorage.setItem("token", response.data.jwt);
                 return true;

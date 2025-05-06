@@ -7,14 +7,17 @@ export class UserBuilder{
 
     setUsername(username){
         this.username = username;
+        return this;
     }
 
     setEmail(email){
         this.email = email;
+        return this;
     }
 
     setPassword(password){
         this.password = password;
+        return this;
     }
 
     build(){
