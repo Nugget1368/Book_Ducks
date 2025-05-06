@@ -61,7 +61,8 @@ body>header{
       text-decoration: none;
       border-bottom: 4px transparent solid;
       gap: 0.5rem;
-      padding: 0px 1rem;
+      padding: 0;
+      padding-right: 16px;
 
       >*{
         cursor: pointer;
