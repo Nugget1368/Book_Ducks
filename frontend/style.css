@@ -162,4 +162,8 @@ article.book h2, article.book h3, article.book p {
 }
 article.book h3, article.book p {
   color: #3e3a3a;
+}
+
+.hidden {
+  display: none !important;
 }/*# sourceMappingURL=style.css.map */
