@@ -99,7 +99,7 @@ section {
   // box-shadow: 6px 6px 0 $comic-black;
   text-align: center;
   position: relative;
-  &.center{
+  &.center {
     @include flex($justify: center);
   }
 }
@@ -199,7 +199,7 @@ form {
       @include flex(column);
     }
   }
-  label{
+  label {
     font-size: 1.5rem;
   }
   input {
@@ -229,8 +229,16 @@ form {
       border-color: #e60012; // serieröd
     }
   }
-  h2{
+  h2 {
     font-size: 2rem;
     margin: 1rem;
+  }
+  a {
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: $comic-red;
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }

@@ -244,4 +244,12 @@ form input:focus {
 form h2 {
   font-size: 2rem;
   margin: 1rem;
+}
+form a {
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: #e63946;
+}
+form a:hover {
+  text-decoration: underline;
 }/*# sourceMappingURL=style.css.map */
