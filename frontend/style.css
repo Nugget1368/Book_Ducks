@@ -28,6 +28,15 @@
   --yellow-800: #9a7d0a;
   --yellow-900: #7d6608;
   --comic-black: #000;
+  --black-100: #e6e6e6;
+  --black-200: #cccccc;
+  --black-300: #b3b3b3;
+  --black-400: #999999;
+  --black-500: #000000;
+  --black-600: #1a1a1a;
+  --black-700: #333333;
+  --black-800: #4d4d4d;
+  --black-900: #666666;
   --comic-white: #fff;
 }
 
@@ -197,14 +206,14 @@ body > header div a label {
   font-size: 1rem;
 }
 body > header div a:hover {
-  border-color: #970a15;
+  border-color: var(--primary-800);
 }
 
 footer {
   background-color: var(--third-500);
   color: var(--comic-white);
   min-height: 250px;
-  border-top: #000 4px solid;
+  border-top: var(--comic-black) 4px solid;
 }
 
 section {
@@ -295,7 +304,7 @@ article.book p {
 }
 article.book h3,
 article.book p {
-  color: #3e3a3a;
+  color: var(--black-700);
 }
 
 .hidden {
@@ -340,29 +349,29 @@ form input {
   font-family: "Comic Sans MS", "Comic Neue", cursive;
   font-size: 1rem;
   padding: 0.5rem 1rem;
-  border: 3px solid #000;
+  border: 3px solid var(--comic-black);
   border-radius: 8px;
-  background-color: #fffc00;
-  color: #000;
-  box-shadow: 4px 4px 0 #000;
+  background-color: var(--yellow-sharp);
+  color: var(--comic-black);
+  box-shadow: 4px 4px 0 var(--comic-black);
   outline: none;
   transition: all 0.2s ease-in-out;
 }
 form input::-moz-placeholder {
-  color: #333;
+  color: var(--black-700);
   opacity: 0.7;
 }
 form input::placeholder {
-  color: #333;
+  color: var(--black-700);
   opacity: 0.7;
 }
 form input:hover {
-  background-color: #fff200;
-  box-shadow: 6px 6px 0 #000;
+  background-color: var(--yellow-sharp);
+  box-shadow: 6px 6px 0 var(--comic-black);
 }
 form input:focus {
-  background-color: #fff;
-  border-color: #e60012;
+  background-color: var(--comic-white);
+  border-color: var(--primary-700);
 }
 form h2 {
   font-size: 2rem;
@@ -393,6 +402,6 @@ form a:hover {
 .comic-bubble h2 {
   margin: 0;
   font-size: 1.5rem;
-  color: #000;
+  color: var(--comic-black);
   text-transform: uppercase;
 }/*# sourceMappingURL=style.css.map */
