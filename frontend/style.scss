@@ -1,15 +1,9 @@
+@import "./styling/_colors.scss";
 @import "./styling/_mixins.scss";
-
-// Färger
-$comic-red: #e63946;
-$comic-yellow: #f1c40f;
-$comic-blue: #2980b9;
-$comic-black: #000;
-$comic-white: #fff;
 
 // Rasterbakgrund
 .raster-bg {
-  background-image: radial-gradient($comic-red 10%, transparent 11%);
+  background-image: radial-gradient(var(--primary-500) 10%, transparent 11%);
   background-size: 12px 12px;
   // opacity: 0.3;
 }
@@ -26,16 +20,16 @@ body {
 main,
 body {
   @extend .raster-bg;
-  background-color: $comic-yellow;
+  background-color: var(--secondary-500);
   min-height: 100vh;
   font-family: "Bangers", cursive;
 }
 
 body > header {
   @include flex($justify: space-between, $align: center);
-  background-color: $comic-red;
-  box-shadow: 0px 4px $comic-black;
-  color: $comic-white;
+  background-color: var(--primary-500);
+  box-shadow: 0px 4px var(--comic-black);
+  color: var(--comic-white);
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -57,7 +51,7 @@ body > header {
       @include flex(row, flex-start, flex-end);
       box-sizing: border-box;
       height: 100%;
-      color: $comic-white;
+      color: var(--comic-white);
       text-decoration: none;
       border-bottom: 4px transparent solid;
       gap: 0.5rem;
@@ -75,17 +69,17 @@ body > header {
         font-size: 1rem;
       }
       &:hover {
-        border-color: #970a15;
+        border-color: var(--primary-800);
       }
     }
   }
 }
 
 footer {
-  background-color: $comic-blue;
-  color: $comic-white;
+  background-color: var(--third-500);
+  color: var(--comic-white);
   min-height: 250px;
-  border-top: #000 4px solid;
+  border-top: var(--comic-black) 4px solid;
 }
 
 // Panel
@@ -93,10 +87,10 @@ section {
   @include flex();
   box-sizing: border-box;
   background-color: #ffffff75;
-  // border: 4px solid $comic-black;
+  // border: 4px solid var(--comic-black);
   padding: 2rem;
   margin: 3rem auto;
-  // box-shadow: 6px 6px 0 $comic-black;
+  // box-shadow: 6px 6px 0 var(--comic-black);
   text-align: center;
   position: relative;
   &.center {
@@ -106,8 +100,8 @@ section {
 
 // Pratbubbla
 .speech-bubble {
-  background: $comic-white;
-  border: 4px solid $comic-black;
+  background: var(--comic-white);
+  border: 4px solid var(--comic-black);
   padding: 1rem;
   display: inline-block;
   position: relative;
@@ -122,36 +116,36 @@ section {
     width: 0;
     height: 0;
     border: 10px solid transparent;
-    border-top-color: $comic-black;
+    border-top-color: var(--comic-black);
   }
 }
 
 // Knapp
 .button {
-  background-color: $comic-blue;
-  color: $comic-white;
+  background-color: var(--third-500);
+  color: var(--comic-white);
   padding: 1rem 2rem;
-  border: 4px solid $comic-black;
+  border: 4px solid var(--comic-black);
   text-transform: uppercase;
   font-weight: bold;
   font-size: 1rem;
-  box-shadow: 4px 4px 0 $comic-black;
+  box-shadow: 4px 4px 0 var(--comic-black);
   cursor: pointer;
   transition: all 0.1s ease-in-out;
 
   &:hover {
-    background-color: $comic-red;
+    background-color: var(--primary-500);
     transform: scale(1.05);
-    box-shadow: 6px 6px 0 $comic-black;
+    box-shadow: 6px 6px 0 var(--comic-black);
   }
 }
 
 article.book {
   @include flex();
   text-align: start;
-  background-color: $comic-white;
-  border: 4px solid $comic-black;
-  box-shadow: 6px 6px 0 $comic-black;
+  background-color: var(--comic-white);
+  border: 4px solid var(--comic-black);
+  box-shadow: 6px 6px 0 var(--comic-black);
   img {
     width: 150px;
     height: 225px;
@@ -170,7 +164,7 @@ article.book {
 
   h3,
   p {
-    color: #3e3a3a;
+    color: var(--black-700);
   }
 }
 
@@ -181,9 +175,9 @@ article.book {
 form {
   @include flex(column);
   gap: 1rem;
-  background-color: $comic-white;
-  border: 4px solid $comic-black;
-  box-shadow: 6px 6px 0 $comic-black;
+  background-color: var(--comic-white);
+  border: 4px solid var(--comic-black);
+  box-shadow: 6px 6px 0 var(--comic-black);
   padding: 1rem;
   max-width: 600px;
   flex: 1;
@@ -206,27 +200,27 @@ form {
     font-family: "Comic Sans MS", "Comic Neue", cursive;
     font-size: 1rem;
     padding: 0.5rem 1rem;
-    border: 3px solid #000;
+    border: 3px solid var(--comic-black);
     border-radius: 8px;
-    background-color: #fffc00; // klassisk serietidningsgul
-    color: #000;
-    box-shadow: 4px 4px 0 #000;
+    background-color: var(--yellow-sharp);
+    color: var(--comic-black);
+    box-shadow: 4px 4px 0 var(--comic-black);
     outline: none;
     transition: all 0.2s ease-in-out;
 
     &::placeholder {
-      color: #333;
+      color: var(--black-700);
       opacity: 0.7;
     }
 
     &:hover {
-      background-color: #fff200;
-      box-shadow: 6px 6px 0 #000;
+      background-color: var(--yellow-sharp);
+      box-shadow: 6px 6px 0 var(--comic-black);
     }
 
     &:focus {
-      background-color: #fff;
-      border-color: #e60012; // serieröd
+      background-color: var(--comic-white);
+      border-color: var(--primary-700); // serieröd
     }
   }
   h2 {
@@ -236,7 +230,7 @@ form {
   a {
     cursor: pointer;
     font-size: 1.5rem;
-    color: $comic-red;
+    color: var(--primary-500);
     &:hover {
       text-decoration: underline;
     }
@@ -246,12 +240,12 @@ form {
 .comic-bubble {
   position: relative;
   max-width: 300px;
-  background: $comic-white;
-  border: 4px solid $comic-black;
+  background: var(--comic-white);
+  border: 4px solid var(--comic-black);
   border-radius: 20px;
   padding: 1rem 1.5rem;
   font-family: 'Comic Sans MS', 'Comic Neue', cursive;
-  box-shadow: 6px 6px 0 $comic-black;
+  box-shadow: 6px 6px 0 var(--comic-black);
   text-align: center;
   margin: 2rem;
   border-bottom-left-radius: 0px;
@@ -259,7 +253,7 @@ form {
   h2 {
     margin: 0;
     font-size: 1.5rem;
-    color: #000;
+    color: var(--comic-black);
     text-transform: uppercase;
   }
 }
