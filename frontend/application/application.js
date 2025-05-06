@@ -4,7 +4,8 @@ import { Auth } from "../auth/auth.js";
 export class Application {
 
     async renderPage() {
-        if (await Auth.isAuthenticated()) {
+        if (await Auth.isAuthenticated() === true) {
+            console.log("hello?");
             await this.sayHello();
         }
         let books = await Library.getBooks();

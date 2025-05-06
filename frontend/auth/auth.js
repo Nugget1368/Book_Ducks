@@ -11,6 +11,8 @@ export class Auth {
         localStorage.removeItem(USER_TOKEN);
     }
     static async isAuthenticated() {
+        if(!sessionStorage.getItem(USER_TOKEN))
+            return false;
         try {
             let response = await axios.get(`${API.getApiUrl()}/users/me`,
                 {
@@ -18,7 +20,7 @@ export class Auth {
                         { Authorization: `Bearer ${sessionStorage.getItem(USER_TOKEN)}` }
                 }
             );
-            console.log(response.data);
+            console.log(response);
             if (response.status === 200)
                 return true;
         }
