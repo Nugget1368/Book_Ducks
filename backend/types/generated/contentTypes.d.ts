@@ -372,6 +372,7 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
 export interface ApiBookStoreBookStore extends Struct.SingleTypeSchema {
   collectionName: 'book_stores';
   info: {
+    description: '';
     displayName: 'Book Store';
     pluralName: 'book-stores';
     singularName: 'book-store';
@@ -391,7 +392,7 @@ export interface ApiBookStoreBookStore extends Struct.SingleTypeSchema {
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
-    theme: Schema.Attribute.Enumeration<['classic', 'blue', 'red']>;
+    theme: Schema.Attribute.Enumeration<['classic', 'skyblue', 'superred']>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
