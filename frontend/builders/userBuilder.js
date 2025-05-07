@@ -1,8 +1,15 @@
 export class UserBuilder{
     constructor(){
+        this.id = null;
         this.username = null;
         this.email = null;
         this.password = null;
+        this.library = null;
+    }
+
+    setId(id){
+        this.id = id;
+        return this;
     }
 
     setUsername(username){
@@ -20,11 +27,18 @@ export class UserBuilder{
         return this;
     }
 
+    setLibrary(library){
+        this.library = library;
+        return this;
+    }
+
     build(){
         return {
             username: this.username,
             email: this.email,
-            password: this.password
+            password: this.password,
+            library: this.library,
+            id: this.id
         }
     }
 }

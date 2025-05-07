@@ -2,13 +2,13 @@ import { API } from "../api/api.js";
 const USER_TOKEN = "token";
 export class Auth {
     static getToken() {
-        return localStorage.getItem(USER_TOKEN);
+        return sessionStorage.getItem(USER_TOKEN);
     }
     static setToken(token) {
-        localStorage.setItem(USER_TOKEN, token);
+        sessionStorage.setItem(USER_TOKEN, token);
     }
     static removeToken() {
-        localStorage.removeItem(USER_TOKEN);
+        sessionStorage.removeItem(USER_TOKEN);
     }
     static async isAuthenticated() {
         try {
@@ -46,7 +46,7 @@ export class Auth {
 
     static async getUser(){
         try {
-            let response = await axios.get(`${API.getApiUrl()}/users/me`,
+            let response = await axios.get(`${API.getApiUrl()}/users/me?populate=library`,
                 {
                     headers:
                         { Authorization: `Bearer ${sessionStorage.getItem(USER_TOKEN)}` }
@@ -85,7 +85,6 @@ export class Auth {
                 identifier: user.username ? user.username : user.email,
                 password: user.password
             });
-            console.log(response.data);
             if (response.status === 200) {
                 sessionStorage.setItem("token", response.data.jwt);
                 return true;

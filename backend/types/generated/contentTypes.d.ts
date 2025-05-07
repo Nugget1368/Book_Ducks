@@ -428,6 +428,10 @@ export interface ApiBookBook extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    users: Schema.Attribute.Relation<
+      'manyToMany',
+      'plugin::users-permissions.user'
+    >;
   };
 }
 
@@ -939,6 +943,7 @@ export interface PluginUsersPermissionsUser
         minLength: 6;
       }>;
     image: Schema.Attribute.Media<'images'>;
+    library: Schema.Attribute.Relation<'manyToMany', 'api::book.book'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',

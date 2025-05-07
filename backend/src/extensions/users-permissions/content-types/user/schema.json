@@ -71,6 +71,12 @@
       ],
       "type": "media",
       "multiple": false
+    },
+    "library": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::book.book",
+      "mappedBy": "users"
     }
   }
 }
