@@ -1,11 +1,9 @@
 import { Library } from "../api/library.js";
 import { Factory } from "../builders/factory.js";
 import { Auth } from "../auth/auth.js";
-import { Theme } from "../api/theme.js";
 export class Application {
 
     async renderPage() {
-        await Theme.getTheme();
         if (await Auth.isAuthenticated() === true) {
             console.log("hello?");
             await this.sayHello();

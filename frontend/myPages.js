@@ -2,8 +2,9 @@ import { Auth } from "./auth/auth.js";
 import { Theme } from "./api/theme.js";
 import { Application } from "./application/applicationProfile.js";
 
-await Theme.getTheme();
-
+document.addEventListener("DOMContentLoaded", async () => {
+    await Theme.getTheme();
+});
 
 if(await Auth.isAuthenticated() === true){
     let app = new Application();
