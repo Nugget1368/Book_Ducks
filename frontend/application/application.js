@@ -27,7 +27,7 @@ export class Application {
                 //Lägg in book direkt?
                 card.querySelector(`button#save-book-${book.documentId}`).addEventListener("click",async (event) => {
                     event.preventDefault();
-                    await this.addToLibrary(book);
+                    await this.addToLibrary(book.documentId);
                 } );
             }
         });
@@ -52,7 +52,9 @@ export class Application {
     async login() {
         let user = await Auth.getUser();
         this.profile = new Profile();
-        this.profile.setEmail(user.email).setId(user.documentId).setLibrary(user.library).setUsername(user.username);
+        this.profile.setEmail(user.email).setId(user.documentId).setUsername(user.username);
+        let library = await this.profile.getLibrary();
+        this.profile.setLibrary(library);
         await this.sayHello(this.profile.username);
     }
 

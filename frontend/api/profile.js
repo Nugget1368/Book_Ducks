@@ -3,25 +3,41 @@ import { UserBuilder } from "../builders/userBuilder.js";
 import { API } from "./api.js";
 
 export class Profile extends UserBuilder {
-    async addToLibrary(book = {}) {
-        let bookids = book.users.map(user => user.documentId);
-        bookids.push(this.id);
+    async addToLibrary(bookId) {
+        let newlibrary = this.library.map(book => book.documentId);
+        newlibrary.push(bookId);
         try {
             let data = {
                 data: {
-                    users: bookids
+                    library: newlibrary
                 }
             };
-            let response = await axios.put(`${API.getApiUrl()}/books/${book.documentId}`, data, {
+            let response = await axios.put(`${API.getApiUrl()}/profiles/${this.id}?populate=library`, data, {
                 headers: {
                     Authorization: `Bearer ${Auth.getToken()}`
                 }
             });
+            if(response.status === 200)
+                this.setLibrary(response.data.data.library);
             return response.data;
         }
         catch (e) {
             console.log(e);
             return {};
+        }
+    }
+    async getLibrary() {
+        try {
+            let response = await axios.get(`${API.getApiUrl()}/profiles/${this.id}?populate=library`, {
+                headers: {
+                    Authorization: `Bearer ${Auth.getToken()}`
+                }
+            });
+            return response.data.data.library;
+        }
+        catch (e) {
+            console.log(e);
+            return [];
         }
     }
 }

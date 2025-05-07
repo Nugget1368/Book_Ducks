@@ -46,14 +46,14 @@ export class Auth {
 
     static async getUser() {
         try {
-            let response = await axios.get(`${API.getApiUrl()}/users/me?populate=library`,
+            let response = await axios.get(`${API.getApiUrl()}/users/me?populate=profile`,
                 {
                     headers:
                         { Authorization: `Bearer ${sessionStorage.getItem(USER_TOKEN)}` }
                 }
             );
             if (response.status === 200)
-                return response.data;
+                return response.data.profile;
         }
         catch (e) {
             return {};

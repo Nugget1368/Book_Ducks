@@ -1,5 +1,5 @@
-export class UserBuilder{
-    constructor(){
+export class UserBuilder {
+    constructor() {
         this.id = null;
         this.username = null;
         this.email = null;
@@ -7,32 +7,35 @@ export class UserBuilder{
         this.library = null;
     }
 
-    setId(id){
+    setId(id) {
         this.id = id;
         return this;
     }
 
-    setUsername(username){
+    setUsername(username) {
         this.username = username;
         return this;
     }
 
-    setEmail(email){
+    setEmail(email) {
         this.email = email;
         return this;
     }
 
-    setPassword(password){
+    setPassword(password) {
         this.password = password;
         return this;
     }
 
-    setLibrary(library){
-        this.library = library;
+    setLibrary(library) {
+        if (library === null || library === undefined)
+            this.library = [];
+        else
+            this.library = library;
         return this;
     }
 
-    build(){
+    build() {
         return {
             username: this.username,
             email: this.email,
