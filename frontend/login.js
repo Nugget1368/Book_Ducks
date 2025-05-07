@@ -13,7 +13,6 @@ span.addEventListener('click', () => {
 })
 
 let loginForm = document.querySelector("#login-form");
-console.log(loginForm);
 loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     let username = loginForm.querySelector("#username").value.trim();
@@ -25,7 +24,6 @@ loginForm.addEventListener('submit', async (e) => {
     if (success) {
         window.location.href = "index.html";
     } else {
-        console.log("Could not login...");
     }
 });
 
@@ -42,6 +40,5 @@ registerForm.addEventListener('submit', async (e) => {
     if (success) {
         window.location.href = "index.html";
     } else {
-        console.log("Could not register...");
     }
 });

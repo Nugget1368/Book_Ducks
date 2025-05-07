@@ -2,21 +2,25 @@ import { Auth } from "../auth/auth.js";
 import { UserBuilder } from "../builders/userBuilder.js";
 import { API } from "./api.js";
 
-export class Profile extends UserBuilder{
-    async addToLibrary(bookId = 0){
-        try{
-            this.library.push(bookId)
+export class Profile extends UserBuilder {
+    async addToLibrary(book = {}) {
+        let bookids = book.users.map(user => user.documentId);
+        bookids.push(this.id);
+        try {
             let data = {
-                library: this.library
+                data: {
+                    users: bookids
+                }
             };
-            let response = await axios.put(`${API.getApiUrl()}/users/${this.id}`, data, {
+            let response = await axios.put(`${API.getApiUrl()}/books/${book.documentId}`, data, {
                 headers: {
                     Authorization: `Bearer ${Auth.getToken()}`
                 }
             });
             return response.data;
         }
-        catch(e){
+        catch (e) {
+            console.log(e);
             return {};
         }
     }

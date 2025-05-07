@@ -10,20 +10,27 @@ export class Application {
     async renderPage() {
         /* //DELETE THIS */
         let user = {
-            username: "bobbi",
-            password: "bobbi123"
+            username: "Batman",
+            password: "batman123"
         }
         await Auth.login(user);
         /* //DELETE THIS */
-        if (await Auth.isAuthenticated() === true) {
-            await this.login(user);
+        let isLoggedIn = await Auth.isAuthenticated();
+        if (isLoggedIn === true) {
+            await this.login();
         }
         let books = await Library.getBooks();
         books.data.forEach(book => {
-            let card = Factory.buildBookCard(book);
+            let card = Factory.buildBookCard(book, isLoggedIn);
             document.querySelector(".books").append(card);
+            if (isLoggedIn === true) {
+                //Lägg in book direkt?
+                card.querySelector(`button#save-book-${book.documentId}`).addEventListener("click",async (event) => {
+                    event.preventDefault();
+                    await this.addToLibrary(book);
+                } );
+            }
         });
-        this.addToLibrary("<id>");
     }
 
     async start() {
@@ -38,16 +45,14 @@ export class Application {
         header.append(h2);
     }
 
-    async addToLibrary(id){
-        // let docId = 1;
-        // await this.profile.addToLibrary(docId);
+    async addToLibrary(id) {
+        await this.profile.addToLibrary(id);
     }
 
     async login() {
         let user = await Auth.getUser();
         this.profile = new Profile();
-        this.profile.setEmail(user.email).setId(user.id).setLibrary(user.library).setUsername(user.username);
-        console.log(this.profile);
+        this.profile.setEmail(user.email).setId(user.documentId).setLibrary(user.library).setUsername(user.username);
         await this.sayHello(this.profile.username);
     }
 

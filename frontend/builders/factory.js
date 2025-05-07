@@ -2,8 +2,8 @@ import { BookBuilder } from "./bookBuilder.js";
 import { API } from "../api/api.js";
 
 export class Factory {
-    static buildBookCard(book) {
-        let bookBuilder = new BookBuilder(book.id);
+    static buildBookCard(book, isLoggedIn = false) {
+        let bookBuilder = new BookBuilder(book.documentId);
         bookBuilder.setTitle(book.title).setAuthor(book.author).setDescription(book.description).setImage(book.image.url).setPages(book.pages).setReleaseDate(book.releaseDate).build();
         let article = document.createElement("article");
         article.classList.add("book");
@@ -14,11 +14,13 @@ export class Factory {
         let info = document.createElement("div");
         info.classList.add("book-info");
 
-        let saveBtn = document.createElement("button");
-        saveBtn.classList.add("material-symbols-outlined");
-        saveBtn.id = `save-book-${bookBuilder.id}`;
-        saveBtn.innerHTML = `bookmark`;
-        article.append(saveBtn);
+        if (isLoggedIn === true) {
+            let saveBtn = document.createElement("button");
+            saveBtn.classList.add("material-symbols-outlined");
+            saveBtn.id = `save-book-${bookBuilder.id}`;
+            saveBtn.innerHTML = `bookmark`;
+            article.append(saveBtn);
+        }
 
         if (bookBuilder.image != null || bookBuilder.image != undefined || bookBuilder.image != "") {
             let img = document.createElement("img");
