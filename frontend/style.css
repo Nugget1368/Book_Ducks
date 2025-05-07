@@ -291,6 +291,7 @@ article.book {
   box-shadow: 6px 6px 0 var(--comic-black);
   height: -moz-fit-content;
   height: fit-content;
+  position: relative;
 }
 article.book img {
   width: 150px;
@@ -304,7 +305,7 @@ article.book > div {
   flex-flow: column;
   justify-content: space-between;
   align-items: stretch;
-  padding: 1rem;
+  padding: 1rem 1rem 3rem 1rem;
 }
 article.book h2,
 article.book h3,
@@ -314,6 +315,27 @@ article.book p {
 article.book h3,
 article.book p {
   color: var(--black-700);
+}
+article.book button {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  background-color: var(--primary-600);
+  border-radius: 50%;
+  border: 2px solid var(--comic-white);
+  box-shadow: 0px 0px 0px 2px var(--primary-600);
+  color: var(--comic-white);
+  font-size: 2rem;
+  cursor: pointer;
+}
+article.book button:active {
+  transition: 0s;
+  box-shadow: 0px 0px 0px 2px var(--secondary-600);
+  background-color: var(--secondary-500);
+}
+
+button:active {
+  box-shadow: inset 2px 2px 0px 5px var(--comic-white);
 }
 
 .hidden {
