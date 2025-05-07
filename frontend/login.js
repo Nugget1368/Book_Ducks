@@ -36,8 +36,9 @@ registerForm.addEventListener('submit', async (e) => {
     let builder = new UserBuilder();
     builder.setEmail(email).setUsername(username).setPassword(password);
     let user = builder.build();
-    let success = await Auth.register(user);
-    if (success) {
+    let users_permissions_user = await Auth.register(user);
+    let profileSuccess = await Auth.createProfile(users_permissions_user.data.user);
+    if (users_permissions_user.success && profileSuccess) {
         window.location.href = "index.html";
     } else {
     }

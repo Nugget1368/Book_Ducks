@@ -9,11 +9,11 @@ export class Application {
 
     async renderPage() {
         /* //DELETE THIS */
-        let user = {
-            username: "Batman",
-            password: "batman123"
-        }
-        await Auth.login(user);
+        // let user = {
+        //     username: "Batman",
+        //     password: "batman123"
+        // }
+        // await Auth.login(user);
         /* //DELETE THIS */
         let isLoggedIn = await Auth.isAuthenticated();
         if (isLoggedIn === true) {

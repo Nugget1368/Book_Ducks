@@ -44,7 +44,7 @@ export class Auth {
         return false;
     }
 
-    static async getUser(){
+    static async getUser() {
         try {
             let response = await axios.get(`${API.getApiUrl()}/users/me?populate=library`,
                 {
@@ -61,6 +61,31 @@ export class Auth {
         return {};
     }
 
+    static async createProfile(user) {
+        try {
+            let profile = await axios.post(`${API.getApiUrl()}/profiles`, {
+                data: {
+                    email: user.email,
+                    username: user.username,
+                    users_permissions_user: user.id,
+                    library: []
+                }
+            }, {
+                headers: {
+                    Authorization: `Bearer ${Auth.getToken()}`
+                }
+            });
+            if (profile.status === 201) {
+                return true;
+            }
+        }
+        catch (e) {
+            console.log(e);
+            return false;
+        }
+        return false;
+    }
+
     static async register(user) {
         try {
             let response = await axios.post(`${API.getApiUrl()}/auth/local/register`, {
@@ -70,13 +95,23 @@ export class Auth {
             });
             if (response.status === 200) {
                 sessionStorage.setItem("token", response.data.jwt);
-                return true;
+                return {
+                    success: true,
+                    data: response.data
+                };
             }
         }
         catch (e) {
-            return false;
+            console.log(e);
+            return {
+                success: false,
+                data: {}
+            };
         }
-        return false;
+        return {
+            success: false,
+            data: {}
+        };
     }
     static async login(user) {
         try {

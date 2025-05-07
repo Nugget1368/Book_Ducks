@@ -65,18 +65,11 @@
       "inversedBy": "users",
       "configurable": false
     },
-    "image": {
-      "allowedTypes": [
-        "images"
-      ],
-      "type": "media",
-      "multiple": false
-    },
-    "library": {
+    "profile": {
       "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::book.book",
-      "mappedBy": "users"
+      "relation": "oneToOne",
+      "target": "api::profile.profile",
+      "mappedBy": "users_permissions_user"
     }
   }
 }

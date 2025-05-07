@@ -43,11 +43,11 @@
     "description": {
       "type": "text"
     },
-    "users": {
+    "profiles": {
       "type": "relation",
       "relation": "manyToMany",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "library"
+      "target": "api::profile.profile",
+      "mappedBy": "library"
     }
   }
 }
