@@ -48,7 +48,6 @@ export class Application {
         this.profile = new Profile();
         this.profile.setEmail(user.email).setId(user.id).setLibrary(user.library).setUsername(user.username);
         console.log(this.profile);
-        // this.profile.set - SET PROFILE
         await this.sayHello(this.profile.username);
     }
 
