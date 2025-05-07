@@ -1,4 +1,4 @@
-import { Application } from "./application/applicationMain.js";
+import { Application } from "./application/application.js";
 import { Theme } from "./api/theme.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
