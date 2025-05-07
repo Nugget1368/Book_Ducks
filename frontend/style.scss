@@ -25,14 +25,6 @@ body {
   font-family: "Bangers", cursive;
 }
 
-header {
-  h1,
-  h2 {
-    // padding: 1rem;
-    // margin: 1rem;
-  }
-}
-
 body > header {
   @include flex($justify: space-between, $align: center);
   background-color: var(--primary-500);
