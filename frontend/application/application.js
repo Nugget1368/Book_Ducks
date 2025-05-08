@@ -3,6 +3,7 @@ import { Factory } from "../builders/factory.js";
 import { Auth } from "../auth/auth.js";
 import { Profile } from "../api/profile.js";
 import { RenderPageBuilder } from "../builders/renderPage.js";
+import { Sorting } from "./sorting.js";
 export class Application {
     constructor() {
         this.profile = null;
@@ -13,7 +14,6 @@ export class Application {
         this.isLoggedIn = await Auth.isAuthenticated();
         if (this.isLoggedIn === true) {
             await this.login();
-            await this.sayHello(this.profile.username);
         }
         this.renderHome();
     }
@@ -61,6 +61,23 @@ export class Application {
             let section = document.querySelector("aside section");
             section.append(article);
             await this.renderBooks(this.profile.library, true);
+            document.querySelector("select#sort").addEventListener("change", async (event) => {
+                event.preventDefault();
+                if (event.target.value === "title-up") {
+                    Sorting.sortTitleUp(this.profile.library);
+                }
+                else if (event.target.value === "title-down") {
+                    Sorting.sortTitleDown(this.profile.library);
+                }
+                else if (event.target.value === "author-up") {
+                    Sorting.sortAuthorUp(this.profile.library);
+                }
+                else if (event.target.value === "author-down") {
+                    Sorting.sortAuthorDown(this.profile.library);
+                }
+                document.querySelector("section.books").innerHTML = ``;
+                await this.renderBooks(this.profile.library, true);
+            });
         }
         else {
             let article = document.createElement("article");
