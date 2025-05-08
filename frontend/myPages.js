@@ -2,8 +2,9 @@ import { Auth } from "./auth/auth.js";
 import { Theme } from "./api/theme.js";
 import { Application } from "./application/applicationProfile.js";
 
-await Theme.getTheme();
-
+document.addEventListener("DOMContentLoaded", async () => {
+    await Theme.getTheme();
+});
 
 if(await Auth.isAuthenticated() === true){
     let app = new Application();
@@ -17,6 +18,6 @@ else{
     let p = document.createElement("p");
     p.innerHTML = "Please <a href=\"login.html\">login</a> to continue.";
     article.append(h2, p);
-    let section = document.querySelector("section");
+    let section = document.querySelector("section#my-library");
     section.append(article);
 }
