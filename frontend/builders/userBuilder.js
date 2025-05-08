@@ -5,6 +5,7 @@ export class UserBuilder {
         this.email = null;
         this.password = null;
         this.library = null;
+        this.loggedIn = false;
     }
 
     setId(id) {

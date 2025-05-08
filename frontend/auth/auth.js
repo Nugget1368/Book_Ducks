@@ -12,6 +12,8 @@ export class Auth {
     }
     static async isAuthenticated() {
         try {
+            if(!sessionStorage.getItem(USER_TOKEN)) 
+                return false;
             let response = await axios.get(`${API.getApiUrl()}/users/me`,
                 {
                     headers:
@@ -52,7 +54,6 @@ export class Auth {
                         { Authorization: `Bearer ${sessionStorage.getItem(USER_TOKEN)}` }
                 }
             );
-            console.log(response.data);
             if (response.status === 200)
                 return response.data.profile;
         }
