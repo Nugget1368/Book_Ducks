@@ -25,10 +25,23 @@ export class Application {
             document.querySelector(".books").append(card);
             if (isLoggedIn === true) {
                 //Lägg in book direkt?
-                card.querySelector(`button#save-book-${book.documentId}`).addEventListener("click",async (event) => {
+                let savedBook = this.profile.library.find(b => b.documentId === book.documentId) ? true : false;
+                if (savedBook === true) {
+                    card.querySelector(`button#save-book-${book.documentId}`).classList.add("bookmarked");
+                }
+                card.querySelector(`button#save-book-${book.documentId}`).addEventListener("click", async (event) => {
                     event.preventDefault();
-                    await this.addToLibrary(book.documentId);
-                } );
+                    if(savedBook === true) {
+                        let result = await this.profile.removeFromLibrary(book.documentId);
+                        if (result === true)
+                            card.querySelector(`button#save-book-${book.documentId}`).classList.remove("bookmarked");
+                    }
+                    else{
+                        let result = await this.addToLibrary(book.documentId);
+                        if (result === true)
+                            card.querySelector(`button#save-book-${book.documentId}`).classList.add("bookmarked");
+                    }
+                });
             }
         });
     }
@@ -46,7 +59,7 @@ export class Application {
     }
 
     async addToLibrary(id) {
-        await this.profile.addToLibrary(id);
+        return await this.profile.addToLibrary(id);
     }
 
     async login() {

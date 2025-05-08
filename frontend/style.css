@@ -327,18 +327,27 @@ article.book button {
   position: absolute;
   right: 8px;
   bottom: 8px;
-  background-color: var(--primary-600);
+  background-color: var(--comic-white);
   border-radius: 50%;
-  border: 2px solid var(--comic-white);
-  box-shadow: 0px 0px 0px 2px var(--primary-600);
-  color: var(--comic-white);
+  border: 2px solid var(--primary-600);
+  box-shadow: 0px 0px 0px 2px var(--comic-600);
+  color: var(--primary-600);
   font-size: 2rem;
   cursor: pointer;
+}
+article.book button:hover {
+  background-color: var(--primary-200);
 }
 article.book button:active {
   transition: 0s;
   box-shadow: 0px 0px 0px 2px var(--secondary-600);
   background-color: var(--secondary-500);
+}
+article.book button.bookmarked {
+  background-color: var(--yellow-500);
+  color: var(--comic-black);
+  border-color: var(--comic-white);
+  box-shadow: 0px 0px 0px 2px var(--yellow-500);
 }
 
 button:active {

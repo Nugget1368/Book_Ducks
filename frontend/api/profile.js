@@ -19,11 +19,11 @@ export class Profile extends UserBuilder {
             });
             if(response.status === 200)
                 this.setLibrary(response.data.data.library);
-            return response.data;
+            return true;
         }
         catch (e) {
             console.log(e);
-            return {};
+            return false;
         }
     }
     async getLibrary() {
