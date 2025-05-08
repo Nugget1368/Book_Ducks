@@ -167,6 +167,10 @@ body > header {
 body > header h1 {
   padding: 1rem;
 }
+body > header h1 a {
+  text-decoration: none;
+  color: var(--comic-white);
+}
 body > header * {
   margin: 0;
   height: 100%;

@@ -40,4 +40,28 @@ export class Profile extends UserBuilder {
             return [];
         }
     }
+
+    async removeFromLibrary(bookId = ""){
+        let newlibrary = this.library.filter(book => book.documentId !== bookId);
+        newlibrary = newlibrary.map(book => book.documentId);
+        try {
+            let data = {
+                data: {
+                    library: newlibrary
+                }
+            };
+            let response = await axios.put(`${API.getApiUrl()}/profiles/${this.id}?populate=library`, data, {
+                headers: {
+                    Authorization: `Bearer ${Auth.getToken()}`
+                }
+            });
+            if(response.status === 200)
+                this.setLibrary(response.data.data.library);
+            return true;
+        }
+        catch (e) {
+            console.log(e);
+            return false;
+        }
+    }
 }

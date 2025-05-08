@@ -26,11 +26,17 @@ export class Application {
         this.profile.setLibrary(library);
     }
 
-    async getLibrary(){
-        if(this.profile.library !== null && this.profile.library.length > 0){
+    async getLibrary() {
+        if (this.profile.library !== null && this.profile.library.length > 0) {
             this.profile.library.forEach(book => {
                 let card = Factory.buildBookCard(book, true);
                 document.querySelector("#my-library").append(card);
+                card.querySelector(`button#save-book-${book.documentId}`).addEventListener("click", async (event) => {
+                    event.preventDefault();
+                    let status = await this.profile.removeFromLibrary(book.documentId);
+                    if (status === true)
+                        card.remove();
+                });
             });
         }
     }
