@@ -250,6 +250,7 @@ section.column {
   position: relative;
   margin: 1rem 0;
   font-style: italic;
+  box-shadow: 6px 6px 0 var(--comic-black);
 }
 .speech-bubble::after {
   content: "";
@@ -445,6 +446,8 @@ form a:hover {
   gap: 2rem;
 }
 .row aside {
+  font-weight: 400;
+  font-family: "Courier New", Courier, monospace;
   position: sticky;
   top: 2rem;
   left: 16px;
@@ -454,7 +457,24 @@ form a:hover {
   flex-flow: column;
   justify-content: flex-start;
   align-items: stretch;
-  gap: 2rem;
+  gap: 1rem;
+}
+.row aside header {
+  border-bottom: 2px solid var(--comic-black);
+}
+.row aside header h2 {
+  margin: 1rem 0;
+  font-size: 1.5rem;
+  color: var(--comic-black);
+  text-transform: uppercase;
+}
+.row aside b {
+  font-weight: 900;
+}
+.row aside section {
+  margin: 0px;
+  padding: 0px;
+  text-align: start;
 }
 .row main {
   flex: 3;

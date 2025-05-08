@@ -110,6 +110,7 @@ section {
   position: relative;
   margin: 1rem 0;
   font-style: italic;
+  box-shadow: 6px 6px 0 var(--comic-black);
 
   &::after {
     content: "";
@@ -288,13 +289,32 @@ form {
   @include flex(row);
   gap: 2rem;
   aside{
+    header{
+      border-bottom: 2px solid var(--comic-black);
+      h2{
+        margin: 1rem 0;
+        font-size: 1.5rem;
+        color: var(--comic-black);
+        text-transform: uppercase;
+      }
+    }
+    font-weight: 400;
+    font-family: 'Courier New', Courier, monospace;
     position: sticky;
     top: 2rem;
     left: 16px;
     flex:1;
     height: 100%;
     @include flex(column);
-    gap: 2rem;
+    gap: 1rem;
+    b{
+      font-weight: 900;
+    }
+    section{
+      margin:0px;
+      padding:0px;
+      text-align: start;
+    }
   }
   main{
     flex:3;
