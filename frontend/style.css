@@ -228,6 +228,7 @@ section {
   text-align: center;
   position: relative;
   min-height: 70vh;
+  gap: 1rem;
 }
 section.center {
   display: flex;
@@ -292,6 +293,7 @@ article.book {
   box-shadow: 6px 6px 0 var(--comic-black);
   height: -moz-fit-content;
   height: fit-content;
+  width: 450px;
   position: relative;
 }
 article.book img {
@@ -306,7 +308,7 @@ article.book > div {
   flex-flow: column;
   justify-content: space-between;
   align-items: stretch;
-  padding: 1rem 1rem 3rem 1rem;
+  padding: 1rem;
 }
 article.book h2,
 article.book h3,

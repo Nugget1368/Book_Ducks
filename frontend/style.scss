@@ -86,13 +86,12 @@ section {
   @include flex();
   box-sizing: border-box;
   background-color: #ffffff75;
-  // border: 4px solid var(--comic-black);
   padding: 2rem;
   margin: 2rem auto;
-  // box-shadow: 6px 6px 0 var(--comic-black);
   text-align: center;
   position: relative;
   min-height: 70vh;
+  gap: 1rem;
   &.center {
     @include flex($justify: center);
   }
@@ -151,6 +150,7 @@ article.book {
   border: 4px solid var(--comic-black);
   box-shadow: 6px 6px 0 var(--comic-black);
   height: fit-content;
+  width: 450px;
   position: relative;
   img {
     width: 150px;
@@ -160,7 +160,7 @@ article.book {
   }
   > div {
     @include flex(column, space-between);
-    padding: 1rem 1rem 3rem 1rem;
+    padding: 1rem;
   }
   h2,
   h3,
