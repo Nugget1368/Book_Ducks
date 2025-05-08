@@ -3,9 +3,9 @@ import { UserBuilder } from "../builders/userBuilder.js";
 import { API } from "./api.js";
 
 export class Profile extends UserBuilder {
-    async addToLibrary(bookId) {
+    async addToLibrary(book = {}) {
+        this.library.push(book);
         let newlibrary = this.library.map(book => book.documentId);
-        newlibrary.push(bookId);
         try {
             let data = {
                 data: {
@@ -17,8 +17,6 @@ export class Profile extends UserBuilder {
                     Authorization: `Bearer ${Auth.getToken()}`
                 }
             });
-            if(response.status === 200)
-                this.setLibrary(response.data.data.library);
             return true;
         }
         catch (e) {
@@ -41,9 +39,9 @@ export class Profile extends UserBuilder {
         }
     }
 
-    async removeFromLibrary(bookId = ""){
-        let newlibrary = this.library.filter(book => book.documentId !== bookId);
-        newlibrary = newlibrary.map(book => book.documentId);
+    async removeFromLibrary(bookId = "") {
+        this.library = this.library.filter(book => book.documentId !== bookId);
+        let newlibrary = this.library.map(book => book.documentId);
         try {
             let data = {
                 data: {
@@ -55,8 +53,6 @@ export class Profile extends UserBuilder {
                     Authorization: `Bearer ${Auth.getToken()}`
                 }
             });
-            if(response.status === 200)
-                this.setLibrary(response.data.data.library);
             return true;
         }
         catch (e) {
