@@ -52,10 +52,12 @@ export class Auth {
                         { Authorization: `Bearer ${sessionStorage.getItem(USER_TOKEN)}` }
                 }
             );
+            console.log(response.data);
             if (response.status === 200)
                 return response.data.profile;
         }
         catch (e) {
+            console.log(e);
             return {};
         }
         return {};
@@ -67,7 +69,7 @@ export class Auth {
                 data: {
                     email: user.email,
                     username: user.username,
-                    users_permissions_user: user.id,
+                    user: user.id,
                     library: []
                 }
             }, {

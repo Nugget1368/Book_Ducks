@@ -28,7 +28,7 @@ export class Profile extends UserBuilder {
     }
     async getLibrary() {
         try {
-            let response = await axios.get(`${API.getApiUrl()}/profiles/${this.id}?populate=library`, {
+            let response = await axios.get(`${API.getApiUrl()}/profiles/${this.id}?pLevel=3`, {
                 headers: {
                     Authorization: `Bearer ${Auth.getToken()}`
                 }
