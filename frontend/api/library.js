@@ -7,7 +7,7 @@ export class Library{
     }
 
     static async getBook(id = ""){
-        let response = await axios.get(API.getApiUrl() + '/books/' + id);
+        let response = await axios.get(API.getApiUrl() + '/books/' + id + "?populate=users");
         return response.data;
     }
     static async getRatings(){

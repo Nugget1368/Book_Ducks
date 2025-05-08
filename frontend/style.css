@@ -167,6 +167,10 @@ body > header {
 body > header h1 {
   padding: 1rem;
 }
+body > header h1 a {
+  text-decoration: none;
+  color: var(--comic-white);
+}
 body > header * {
   margin: 0;
   height: 100%;
@@ -228,6 +232,7 @@ section {
   text-align: center;
   position: relative;
   min-height: 70vh;
+  gap: 1rem;
 }
 section.center {
   display: flex;
@@ -250,6 +255,7 @@ section.column {
   position: relative;
   margin: 1rem 0;
   font-style: italic;
+  box-shadow: 6px 6px 0 var(--comic-black);
 }
 .speech-bubble::after {
   content: "";
@@ -291,6 +297,8 @@ article.book {
   box-shadow: 6px 6px 0 var(--comic-black);
   height: -moz-fit-content;
   height: fit-content;
+  width: 450px;
+  position: relative;
 }
 article.book img {
   width: 150px;
@@ -314,6 +322,36 @@ article.book p {
 article.book h3,
 article.book p {
   color: var(--black-700);
+}
+article.book button {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  background-color: var(--comic-white);
+  border-radius: 50%;
+  border: 2px solid var(--primary-600);
+  box-shadow: 0px 0px 0px 2px var(--comic-600);
+  color: var(--primary-600);
+  font-size: 2rem;
+  cursor: pointer;
+}
+article.book button:hover {
+  background-color: var(--primary-200);
+}
+article.book button:active {
+  transition: 0s;
+  box-shadow: 0px 0px 0px 2px var(--secondary-600);
+  background-color: var(--secondary-500);
+}
+article.book button.bookmarked {
+  background-color: var(--yellow-500);
+  color: var(--comic-black);
+  border-color: var(--comic-white);
+  box-shadow: 0px 0px 0px 2px var(--yellow-500);
+}
+
+button:active {
+  box-shadow: inset 2px 2px 0px 5px var(--comic-white);
 }
 
 .hidden {
@@ -413,4 +451,46 @@ form a:hover {
   font-size: 1.5rem;
   color: var(--comic-black);
   text-transform: uppercase;
+}
+
+.row {
+  display: flex;
+  flex-flow: row;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 2rem;
+}
+.row aside {
+  font-weight: 400;
+  font-family: "Courier New", Courier, monospace;
+  position: sticky;
+  top: 2rem;
+  left: 16px;
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 1rem;
+}
+.row aside header {
+  border-bottom: 2px solid var(--comic-black);
+}
+.row aside header h2 {
+  margin: 1rem 0;
+  font-size: 1.5rem;
+  color: var(--comic-black);
+  text-transform: uppercase;
+}
+.row aside b {
+  font-weight: 900;
+}
+.row aside section {
+  margin: 0px;
+  padding: 0px;
+  text-align: start;
+}
+.row main {
+  flex: 3;
 }/*# sourceMappingURL=style.css.map */

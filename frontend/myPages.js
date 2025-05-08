@@ -18,6 +18,6 @@ else{
     let p = document.createElement("p");
     p.innerHTML = "Please <a href=\"login.html\">login</a> to continue.";
     article.append(h2, p);
-    let section = document.querySelector("section");
+    let section = document.querySelector("section#my-library");
     section.append(article);
 }
