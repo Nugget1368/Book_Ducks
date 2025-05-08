@@ -283,3 +283,20 @@ form {
     text-transform: uppercase;
   }
 }
+
+.row{
+  @include flex(row);
+  gap: 2rem;
+  aside{
+    position: sticky;
+    top: 2rem;
+    left: 16px;
+    flex:1;
+    height: 100%;
+    @include flex(column);
+    gap: 2rem;
+  }
+  main{
+    flex:3;
+  }
+}

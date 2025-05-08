@@ -435,4 +435,27 @@ form a:hover {
   font-size: 1.5rem;
   color: var(--comic-black);
   text-transform: uppercase;
+}
+
+.row {
+  display: flex;
+  flex-flow: row;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 2rem;
+}
+.row aside {
+  position: sticky;
+  top: 2rem;
+  left: 16px;
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 2rem;
+}
+.row main {
+  flex: 3;
 }/*# sourceMappingURL=style.css.map */

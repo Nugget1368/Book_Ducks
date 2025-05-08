@@ -11,7 +11,7 @@ export class Application{
             <p><b>Email:</b> ${user.email}</p>
             <a>Read later</a>
         </section>`;
-        let section = document.querySelector("section");
+        let section = document.querySelector("aside section");
         section.append(article);
     }
 
