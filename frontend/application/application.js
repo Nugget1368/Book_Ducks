@@ -39,6 +39,7 @@ export class Application {
         this.profile.setEmail(user.email).setId(user.documentId).setUsername(user.username);
         let library = await this.profile.getLibrary();
         this.profile.setLibrary(library);
+        this.renderLogout();
     }
 
     async renderHome() {
@@ -121,7 +122,18 @@ export class Application {
         });
     }
 
-    async logout() {
+    renderLogout(){
+        let a = document.querySelector("a#login-page");
+        a.textContent = "Logout";
+        a.removeAttribute("href");
+        a.addEventListener("click", (event) => {
+            event.preventDefault();
+            this.logout();
+            window.location.href = "index.html";
+        });
+    }
 
+    async logout() {
+        Auth.removeToken();
     }
 }
