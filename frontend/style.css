@@ -222,7 +222,7 @@ footer {
 
 section {
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: column;
   justify-content: flex-start;
   align-items: stretch;
   box-sizing: border-box;
@@ -245,6 +245,21 @@ section.column {
   flex-flow: column;
   justify-content: flex-start;
   align-items: center;
+}
+section .content {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 1rem;
+  max-width: 1500px;
+}
+section select {
+  padding: 0.5rem;
+  border: 3px solid var(--comic-black);
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: "Comic Sans MS", "Comic Neue", cursive;
 }
 
 .speech-bubble {
@@ -464,7 +479,7 @@ form a:hover {
   font-weight: 400;
   font-family: "Courier New", Courier, monospace;
   position: sticky;
-  top: 2rem;
+  top: 5.5rem;
   left: 16px;
   flex: 1;
   height: 100%;
