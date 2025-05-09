@@ -12,6 +12,11 @@
       "max": 10,
       "min": 0,
       "default": 0
+    },
+    "profiles": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::profile.profile"
     }
   }
 }
