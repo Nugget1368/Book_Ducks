@@ -8,6 +8,7 @@ export class Application {
     constructor() {
         this.profile = null;
         this.isLoggedIn = false;
+        this.books = [];
     }
 
     async start() {
@@ -15,6 +16,8 @@ export class Application {
         if (this.isLoggedIn === true) {
             await this.login();
         }
+        let data = await Library.getBooks();
+        this.books = data.data;
         this.renderHome();
     }
 
@@ -43,8 +46,7 @@ export class Application {
         if(this.isLoggedIn === true) {
             await this.sayHello(this.profile.username);
         }
-        let books = await Library.getBooks();
-        await this.renderBooks(books.data, this.isLoggedIn);
+        await this.renderBooks(this.books, this.isLoggedIn);
     }
 
     async renderProfile() {
