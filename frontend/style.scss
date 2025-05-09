@@ -86,7 +86,7 @@ footer {
 
 // Panel
 section {
-  @include flex();
+  @include flex(column, flex-start, stretch);
   box-sizing: border-box;
   background-color: #ffffff75;
   padding: 2rem;
@@ -100,6 +100,18 @@ section {
   }
   &.column {
     @include flex(column, flex-start, center);
+  }
+  .content{
+    @include flex();
+    gap: 1rem;
+    max-width: 1500px;
+  }
+  select{
+    padding: 0.5rem;
+    border: 3px solid var(--comic-black);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: "Comic Sans MS", "Comic Neue", cursive;
   }
 }
 

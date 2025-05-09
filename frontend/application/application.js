@@ -77,7 +77,7 @@ export class Application {
                 else if (event.target.value === "author-down") {
                     Sorting.sortAuthorDown(this.profile.library);
                 }
-                document.querySelector("section.books").innerHTML = ``;
+                document.querySelector("section.books .content").innerHTML = ``;
                 await this.renderBooks(this.profile.library, true);
             });
         }
@@ -97,7 +97,7 @@ export class Application {
     async renderBooks(books = [], isLoggedIn = false) {
         books.forEach(book => {
             let card = Factory.buildBookCard(book, isLoggedIn);
-            document.querySelector(".books").append(card);
+            document.querySelector(".books .content").append(card);
             if (isLoggedIn === true) {
                 //Lägg in book direkt?
                 let savedBook = this.profile.library.find(b => b.documentId === book.documentId) ? true : false;

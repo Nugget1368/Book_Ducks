@@ -4,6 +4,7 @@ export class RenderPageBuilder {
         let main = document.createElement("main");
         main.innerHTML = `  <header></header>
         <section class="books">
+            <div class="content"></div>
         </section>`
         document.querySelector("body > header").after(main);
     }
@@ -23,14 +24,15 @@ export class RenderPageBuilder {
             <header class="comic-bubble">
                 <h2>My Library</h2>
             </header>
-            <select id="sort" name="sort">
-            <option value="default">Sort...</option>
-                <option value="title-up">Title (A-Z)</option>
-                <option value="title-down">Title Down (Z-A)</option>
-                <option value="author-up">Author Up (A-Z)</option>
-                <option value="author-down">Author Down (Z-A)</option>
-            </select>
             <section class="books">
+                <select id="sort" name="sort">
+                <option value="default">Sort...</option>
+                    <option value="title-up">Title (A-Z)</option>
+                    <option value="title-down">Title Down (Z-A)</option>
+                    <option value="author-up">Author Up (A-Z)</option>
+                    <option value="author-down">Author Down (Z-A)</option>
+                </select>
+                <div class="content"></div>
             </section>
     </main>
     <footer></footer>`;
