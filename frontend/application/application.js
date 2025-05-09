@@ -53,6 +53,8 @@ export class Application {
     async renderProfile() {
         RenderPageBuilder.renderProfile();
         if (await Auth.isAuthenticated() === true) {
+            RenderPageBuilder.renderProfileAside();
+            RenderPageBuilder.renderSelect();
             let article;
             if (!document.querySelector("aside article"))
                 article = document.createElement("article");
