@@ -7,3 +7,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 const app = new Application();
 app.start();
+
+document.querySelector("header #home").addEventListener("click", async ()=>{
+    await app.renderHome();
+});
+
+document.querySelector("header #my-pages").addEventListener("click", async ()=>{
+    await app.renderProfile();
+})
