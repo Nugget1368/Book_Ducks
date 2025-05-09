@@ -8,7 +8,7 @@ export class Application {
     constructor() {
         this.profile = null;
         this.isLoggedIn = false;
-        this.books = [];
+        this.library = null;
     }
 
     async start() {
@@ -16,8 +16,10 @@ export class Application {
         if (this.isLoggedIn === true) {
             await this.login();
         }
-        let data = await Library.getBooks();
-        this.books = data.data;
+        this.library = new Library();
+        /// TODO: Fix this, cannot have to async methods on the same line
+        await this.library.setBooks();
+        await this.library.setRatings();
         this.renderHome();
     }
 
@@ -44,10 +46,10 @@ export class Application {
 
     async renderHome() {
         RenderPageBuilder.renderIndex();
-        if(this.isLoggedIn === true) {
+        if (this.isLoggedIn === true) {
             await this.sayHello(this.profile.username);
         }
-        await this.renderBooks(this.books, this.isLoggedIn);
+        await this.renderBooks(this.library.books, this.isLoggedIn);
     }
 
     async renderProfile() {
@@ -125,7 +127,7 @@ export class Application {
         });
     }
 
-    renderLogout(){
+    renderLogout() {
         let a = document.querySelector("a#login-page");
         a.innerHTML = `<span class="material-symbols-outlined">
                     logout

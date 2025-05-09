@@ -4,7 +4,7 @@ import { API } from "../api/api.js";
 export class Factory {
     static buildBookCard(book, isLoggedIn = false) {
         let bookBuilder = new BookBuilder(book.documentId);
-        bookBuilder.setTitle(book.title).setAuthor(book.author).setDescription(book.description).setImage(book.image.url).setPages(book.pages).setReleaseDate(book.releaseDate).setRating(book.rating).build();
+        bookBuilder.setTitle(book.title).setAuthor(book.author).setDescription(book.description).setImage(book.image.url).setPages(book.pages).setReleaseDate(book.releaseDate).setRating(book.rating.average).build();
         let article = document.createElement("article");
         article.classList.add("book");
         article.id = `book-${bookBuilder.id}`;
@@ -13,7 +13,6 @@ export class Factory {
         content.classList.add("book-content");
         let info = document.createElement("div");
         info.classList.add("book-info");
-
         if (isLoggedIn === true) {
             let saveBtn = document.createElement("button");
             saveBtn.classList.add("material-symbols-outlined");
@@ -44,7 +43,7 @@ export class Factory {
         
         if(bookBuilder.rating != null || bookBuilder.rating != undefined || bookBuilder.rating != "") {
             let rating = document.createElement("p");
-            rating.textContent = `Rating: ${bookBuilder.rating.average}/10 stars`;
+            rating.textContent = `Rating: ${bookBuilder.rating}/10 stars`;
             info.append(rating);
         }
 
