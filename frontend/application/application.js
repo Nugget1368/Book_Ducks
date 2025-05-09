@@ -86,6 +86,7 @@ export class Application {
         }
         else {
             let article = document.createElement("article");
+            article.id = "not-logged-in";
             article.classList.add("comic-bubble");
             let h2 = document.createElement("h2");
             h2.textContent = "You are not logged in.";

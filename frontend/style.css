@@ -508,4 +508,8 @@ form a:hover {
 }
 .row main {
   flex: 3;
+}
+
+#not-logged-in {
+  align-self: center;
 }/*# sourceMappingURL=style.css.map */
