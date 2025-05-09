@@ -124,7 +124,9 @@ export class Application {
 
     renderLogout(){
         let a = document.querySelector("a#login-page");
-        a.textContent = "Logout";
+        a.innerHTML = `<span class="material-symbols-outlined">
+                    logout
+                </span><label>Logout</label>`;
         a.removeAttribute("href");
         a.addEventListener("click", (event) => {
             event.preventDefault();
