@@ -383,4 +383,10 @@ dialog {
       margin-top: 0.5rem;
     }
   }
+  form{
+    box-shadow: none;
+    fieldset{
+      border: none;
+    }
+  }
 }

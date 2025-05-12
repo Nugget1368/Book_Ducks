@@ -549,4 +549,10 @@ dialog img {
 }
 dialog .content > * {
   margin-top: 0.5rem;
+}
+dialog form {
+  box-shadow: none;
+}
+dialog form fieldset {
+  border: none;
 }/*# sourceMappingURL=style.css.map */
