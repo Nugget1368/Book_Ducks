@@ -21,6 +21,15 @@ export class Application {
         await this.library.setBooks();
         await this.library.setRatings();
         this.renderHome();
+        document.querySelector("form").addEventListener("submit", async (event) => {
+            event.preventDefault();
+            let id = document.querySelector("form").id;
+            let rating = document.querySelector("form input[type=radio]:checked").value;
+            rating = parseInt(rating);
+            if(rating !== null || rating!== undefined || rating !== ""){
+                await this.library.updateRating(id, { value: rating, profileId: this.profile.id });
+            }
+        })
     }
 
     async sayHello(username = "") {
@@ -123,6 +132,35 @@ export class Application {
                             card.querySelector(`button#save-book-${book.documentId}`).classList.add("bookmarked");
                     }
                 });
+                card.querySelector("[data-open-modal]").addEventListener("click", async () => {
+                    let modal = document.querySelector(`[data-modal]`);
+                    modal.querySelector("h3").textContent = book.title;
+                    let content = modal.querySelector("div.content");
+                    let form = modal.querySelector("form");
+                    /// TODO: Bryt ut, 'on-open' eller 'on-close' hos modal
+                    let removeElements = content.querySelectorAll(":not(h3, form, form *)");
+                    let oldimg = modal.querySelector("img");
+                    if(oldimg){
+                        oldimg.remove();
+                    }
+                    if(removeElements){
+                        removeElements.forEach(e => e.remove());
+                    }
+                    let author = document.createElement("h4");
+                    author.textContent = book.author;
+                    form.before(author);
+                    let description = document.createElement("p");
+                    description.textContent = book.description;
+                    form.before(description);
+                    let rating = document.createElement("p");
+                    rating.textContent = "Rating: " + book.rating.average + "/10 stars";
+                    form.before(rating);
+                    let img = document.createElement("img");
+                    img.src = card.querySelector("img").src;
+                    content.before(img);                    
+                    modal.querySelector("form").id = book.rating.documentId;
+                    modal.showModal();
+                })
             }
         });
     }

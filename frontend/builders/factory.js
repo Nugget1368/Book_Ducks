@@ -19,6 +19,12 @@ export class Factory {
             saveBtn.id = `save-book-${bookBuilder.id}`;
             saveBtn.innerHTML = `bookmark`;
             article.append(saveBtn);
+            let rateBtn = document.createElement("button");
+            rateBtn.classList.add("material-symbols-outlined");
+            rateBtn.id = `rate-book-${bookBuilder.id}`;
+            rateBtn.setAttribute("data-open-modal", "");
+            rateBtn.innerHTML = `star`;
+            article.append(rateBtn);
         }
 
         if (bookBuilder.image != null || bookBuilder.image != undefined || bookBuilder.image != "") {
@@ -62,5 +68,9 @@ export class Factory {
         content.append(info);
 
         return article;
+    }
+
+    static buildBookDetail(book){
+        
     }
 }

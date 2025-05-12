@@ -340,8 +340,6 @@ article.book p {
 }
 article.book button {
   position: absolute;
-  right: 8px;
-  bottom: 8px;
   background-color: var(--comic-white);
   border-radius: 50%;
   border: 2px solid var(--primary-600);
@@ -349,6 +347,14 @@ article.book button {
   color: var(--primary-600);
   font-size: 2rem;
   cursor: pointer;
+}
+article.book button:nth-child(1) {
+  bottom: 0.5rem;
+  right: 0.5rem;
+}
+article.book button:nth-child(2) {
+  bottom: 0.5rem;
+  right: 4rem;
 }
 article.book button:hover {
   background-color: var(--primary-200);
@@ -512,4 +518,35 @@ form a:hover {
 
 #not-logged-in {
   align-self: center;
+}
+
+dialog button[data-close-modal] {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+}
+dialog h3,
+dialog h4,
+dialog p {
+  margin: 0;
+}
+dialog fieldset {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 1rem;
+}
+dialog fieldset div {
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+dialog img {
+  width: 200px;
+  height: 300px;
+}
+dialog .content > * {
+  margin-top: 0.5rem;
 }/*# sourceMappingURL=style.css.map */
