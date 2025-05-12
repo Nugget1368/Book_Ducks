@@ -5,6 +5,7 @@ export class Library {
     constructor() {
         this.books = [];
         this.ratings = [];
+        this.ratedBooks = [];
     }
     async setBooks() {
         let response = await axios.get(API.getApiUrl() + '/books?populate=*');
@@ -34,11 +35,18 @@ export class Library {
         return rating;
     }
 
-    getUserRatings(profileId = "") {
+    setUserRatings(profileId = "") {
         let ratings = this.ratings.filter(rating => rating.ratings.find(r => r.profileId === profileId));
+        ratings.forEach(r =>{
+            console.log(r);
+            this.ratedBooks.push({
+                book: r.book,
+                rating: r.ratings.find(rb => rb.profileId === profileId)
+            })
+        });
         /// User this
         // let userRatings = ratings.map(rating => rating.ratings.find(r => r.profileId === profileId));
-        return ratings;
+        return this;
     }
 
     async updateRating(id = "", newRating = { value: 0, profile: this.profile.id, profileId: this.profile.id }) {

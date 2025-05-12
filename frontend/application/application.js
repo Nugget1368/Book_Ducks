@@ -12,14 +12,14 @@ export class Application {
     }
 
     async start() {
-        this.isLoggedIn = await Auth.isAuthenticated();
-        if (this.isLoggedIn === true) {
-            await this.login();
-        }
         this.library = new Library();
         /// TODO: Fix this, cannot have to async methods on the same line
         await this.library.setBooks();
         await this.library.setRatings();
+        this.isLoggedIn = await Auth.isAuthenticated();
+        if (this.isLoggedIn === true) {
+            await this.login();
+        }
         this.renderHome();
         document.querySelector("form").addEventListener("submit", async (event) => {
             event.preventDefault();
@@ -55,6 +55,7 @@ export class Application {
         this.profile = new Profile();
         this.profile.setEmail(user.email).setId(user.documentId).setUsername(user.username);
         let library = await this.profile.getLibrary();
+        this.library.setUserRatings(this.profile.id);
         this.profile.setLibrary(library);
         this.renderLogout();
     }
@@ -65,56 +66,60 @@ export class Application {
             await this.sayHello(this.profile.username);
         }
         await this.renderBooks(this.library.books, this.isLoggedIn);
-        let ratings = this.library.getUserRatings(this.profile.id);
     }
 
     async renderProfile() {
         /// TODO: Clean this
         RenderPageBuilder.renderProfile();
         if (await Auth.isAuthenticated() === true) {
-            RenderPageBuilder.renderProfileAside();
+            RenderPageBuilder.renderProfileAside(this.profile.username, this.profile.email);
             RenderPageBuilder.renderSelect();
-            let article;
-            if (!document.querySelector("aside article"))
-                article = document.createElement("article");
-            else
-                article = document.querySelector("aside article");
-            article.innerHTML = `
-                <p><b>Username:</b> ${this.profile.username}</p>
-                <p><b>Email:</b> ${this.profile.email}</p>`;
-            let myRatedBooks = document.createElement("article");
-            myRatedBooks.id = "my-rated-books";
-            let ratedList = document.createElement("ul");
-            let myRatedBooksHeader = document.createElement("h3");
-            myRatedBooksHeader.textContent = "Your Ratings";
-            let select = RenderPageBuilder.renderSelectRatings();
-            myRatedBooks.append(myRatedBooksHeader, select, ratedList);
-            let ratings = this.library.getUserRatings(this.profile.id);
-            ratings.forEach(rating => {
-                let userRating = rating.ratings.find(r => r.profileId === this.profile.id).value;
-                let li = document.createElement("li");
-                li.textContent = `${rating.book.title} (${rating.book.author}) \r\nRated: ${userRating}/10 Stars`;
-                ratedList.append(li);
-            });
+            let myRatedBooks = RenderPageBuilder.renderMyRatedBooks();
+            let ratedBooksList = this.renderMyRatedBooks();
             let section = document.querySelector("aside section");
-            section.append(article, myRatedBooks);
+            myRatedBooks.append(ratedBooksList);
+            section.innerHTML = "";
+            section.append(myRatedBooks);
             await this.renderBooks(this.profile.library, true);
             document.querySelector("select#sort").addEventListener("change", async (event) => {
                 event.preventDefault();
                 if (event.target.value === "title-up") {
-                    Sorting.sortTitleUp(this.profile.library);
+                    Sorting.sortStringUp(this.profile.library, "title");
                 }
                 else if (event.target.value === "title-down") {
-                    Sorting.sortTitleDown(this.profile.library);
+                    Sorting.sortStringDown(this.profile.library, "title");
                 }
                 else if (event.target.value === "author-up") {
-                    Sorting.sortAuthorUp(this.profile.library);
+                    Sorting.sortStringUp(this.profile.library, "author");
                 }
                 else if (event.target.value === "author-down") {
-                    Sorting.sortAuthorDown(this.profile.library);
+                    Sorting.sortStringDown(this.profile.library, "author");
                 }
                 document.querySelector("section.books .content").innerHTML = ``;
                 await this.renderBooks(this.profile.library, true);
+            });
+            section.querySelector("select#sort-ratings").addEventListener("change", async (event) => {
+                event.preventDefault();
+                if (event.target.value === "rating-up") {
+                    Sorting.sortNumberDown(this.library.ratedBooks, "rating", "value");
+                }
+                else if (event.target.value === "rating-down") {
+                    Sorting.sortNumberUp(this.library.ratedBooks, "rating", "value");
+                }
+                else if (event.target.value === "title-up") {
+                    Sorting.sortStringUp(this.library.ratedBooks, "book", "title");
+                }
+                else if (event.target.value === "title-down") {
+                    Sorting.sortStringDown(this.library.ratedBooks, "book", "title");
+                }
+                else if (event.target.value === "author-up") {
+                    Sorting.sortStringUp(this.library.ratedBooks, "book", "author");
+                }
+                else if (event.target.value === "author-down") {
+                    Sorting.sortStringDown(this.library.ratedBooks, "book", "author");
+                }
+                let ul = this.renderMyRatedBooks(this.library.ratedBooks);
+                section.querySelector("ul").replaceWith(ul);
             });
         }
         else {
@@ -185,6 +190,16 @@ export class Application {
                 })
             }
         });
+    }
+
+    renderMyRatedBooks() {
+        let ul = document.createElement("ul");
+        this.library.ratedBooks.forEach(rating => {
+            let li = document.createElement("li");
+            li.textContent = `${rating.book.title} (${rating.book.author}) \r\nRated: ${rating.rating.value}/10 Stars`;
+            ul.append(li);
+        });
+        return ul;
     }
 
     renderLogout() {
