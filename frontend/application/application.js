@@ -26,9 +26,9 @@ export class Application {
             let id = document.querySelector("form").id;
             let rating = document.querySelector("form input[type=radio]:checked").value;
             rating = parseInt(rating);
-            if(rating !== null || rating!== undefined || rating !== ""){
-                let response = await this.library.updateRating(id, { value: rating, profileId: this.profile.id });
-                if(response !== false){
+            if (rating !== null || rating !== undefined || rating !== "") {
+                let response = await this.library.updateRating(id, { value: rating, profile: this.profile.id, profileId: this.profile.id });
+                if (response !== false) {
                     document.querySelector("dialog[data-modal]").close();
                     location.reload();
                 }
@@ -144,10 +144,10 @@ export class Application {
                     /// TODO: Bryt ut, 'on-open' eller 'on-close' hos modal
                     let removeElements = content.querySelectorAll(":not(h3, form, form *)");
                     let oldimg = modal.querySelector("img");
-                    if(oldimg){
+                    if (oldimg) {
                         oldimg.remove();
                     }
-                    if(removeElements){
+                    if (removeElements) {
                         removeElements.forEach(e => e.remove());
                     }
                     let author = document.createElement("h4");
@@ -161,7 +161,7 @@ export class Application {
                     form.before(rating);
                     let img = document.createElement("img");
                     img.src = card.querySelector("img").src;
-                    content.before(img);                    
+                    content.before(img);
                     modal.querySelector("form").id = book.rating.documentId;
                     modal.showModal();
                 })
