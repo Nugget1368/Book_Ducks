@@ -75,8 +75,8 @@ export class RenderPageBuilder {
         <option value="title-down">Title Down (Z-A)</option>
         <option value="author-up">Author Up (A-Z)</option>
         <option value="author-down">Author Down (Z-A)</option>
-        <option value="rating-up">Rating Up</option>
-        <option value="rating-down">Rating Down</option>
+        <option value="rating-high">Rating High</option>
+        <option value="rating-low">Rating Low</option>
         `;
         return select;
     }

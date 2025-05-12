@@ -38,14 +38,11 @@ export class Library {
     setUserRatings(profileId = "") {
         let ratings = this.ratings.filter(rating => rating.ratings.find(r => r.profileId === profileId));
         ratings.forEach(r =>{
-            console.log(r);
             this.ratedBooks.push({
                 book: r.book,
                 rating: r.ratings.find(rb => rb.profileId === profileId)
             })
         });
-        /// User this
-        // let userRatings = ratings.map(rating => rating.ratings.find(r => r.profileId === profileId));
         return this;
     }
 
@@ -68,7 +65,7 @@ export class Library {
                 return {
                     value: r.value,
                     profileId: r.profileId,
-                    profile: r.profile.documentId
+                    profile: r.profileId
                 };
             }
         });

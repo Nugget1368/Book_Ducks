@@ -21,6 +21,7 @@ export class Application {
             await this.login();
         }
         this.renderHome();
+        /// TODO : Clean This
         document.querySelector("form").addEventListener("submit", async (event) => {
             event.preventDefault();
             let id = document.querySelector("form").id;
@@ -74,50 +75,40 @@ export class Application {
         if (await Auth.isAuthenticated() === true) {
             RenderPageBuilder.renderProfileAside(this.profile.username, this.profile.email);
             RenderPageBuilder.renderSelect();
+            //My Rated Books
             let myRatedBooks = RenderPageBuilder.renderMyRatedBooks();
             let ratedBooksList = this.renderMyRatedBooks();
             let section = document.querySelector("aside section");
             myRatedBooks.append(ratedBooksList);
             section.innerHTML = "";
             section.append(myRatedBooks);
+            //Saved Books
             await this.renderBooks(this.profile.library, true);
+            //Sort Saved Books
             document.querySelector("select#sort").addEventListener("change", async (event) => {
                 event.preventDefault();
-                if (event.target.value === "title-up") {
-                    Sorting.sortStringUp(this.profile.library, "title");
-                }
-                else if (event.target.value === "title-down") {
-                    Sorting.sortStringDown(this.profile.library, "title");
-                }
-                else if (event.target.value === "author-up") {
-                    Sorting.sortStringUp(this.profile.library, "author");
-                }
-                else if (event.target.value === "author-down") {
-                    Sorting.sortStringDown(this.profile.library, "author");
-                }
+                let command = event.target.value.split("-");
+                command[1] === "up" ?
+                    Sorting.sortStringUp(this.profile.library, command[0]) :
+                    Sorting.sortStringDown(this.profile.library, command[0]);
                 document.querySelector("section.books .content").innerHTML = ``;
                 await this.renderBooks(this.profile.library, true);
             });
+            //Sort Rated Books
             section.querySelector("select#sort-ratings").addEventListener("change", async (event) => {
                 event.preventDefault();
-                if (event.target.value === "rating-up") {
-                    Sorting.sortNumberDown(this.library.ratedBooks, "rating", "value");
+                let command = event.target.value.split("-");
+                if (command[0] !== "rating") {
+                    command[1] === "up" ?
+                        Sorting.sortStringUp(this.library.ratedBooks, "book", command[0]) :
+                        Sorting.sortStringDown(this.library.ratedBooks, "book", command[0]);
                 }
-                else if (event.target.value === "rating-down") {
-                    Sorting.sortNumberUp(this.library.ratedBooks, "rating", "value");
+                else{
+                    command[1] === "high" ?
+                    Sorting.sortNumberHigh(this.library.ratedBooks, "rating", "value") :
+                    Sorting.sortNumberLow(this.library.ratedBooks, "rating", "value");
                 }
-                else if (event.target.value === "title-up") {
-                    Sorting.sortStringUp(this.library.ratedBooks, "book", "title");
-                }
-                else if (event.target.value === "title-down") {
-                    Sorting.sortStringDown(this.library.ratedBooks, "book", "title");
-                }
-                else if (event.target.value === "author-up") {
-                    Sorting.sortStringUp(this.library.ratedBooks, "book", "author");
-                }
-                else if (event.target.value === "author-down") {
-                    Sorting.sortStringDown(this.library.ratedBooks, "book", "author");
-                }
+                // ||
                 let ul = this.renderMyRatedBooks(this.library.ratedBooks);
                 section.querySelector("ul").replaceWith(ul);
             });
@@ -146,6 +137,7 @@ export class Application {
                 if (savedBook === true) {
                     card.querySelector(`button#save-book-${book.documentId}`).classList.add("bookmarked");
                 }
+                //Save book
                 card.querySelector(`button#save-book-${book.documentId}`).addEventListener("click", async (event) => {
                     event.preventDefault();
                     if (savedBook === true) {
@@ -159,6 +151,7 @@ export class Application {
                             card.querySelector(`button#save-book-${book.documentId}`).classList.add("bookmarked");
                     }
                 });
+                //Modal
                 card.querySelector("[data-open-modal]").addEventListener("click", async () => {
                     let modal = document.querySelector(`[data-modal]`);
                     modal.querySelector("h3").textContent = book.title;
