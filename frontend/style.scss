@@ -113,6 +113,22 @@ section {
     font-size: 1rem;
     font-family: "Comic Sans MS", "Comic Neue", cursive;
   }
+  &#profile{
+    ul{
+      padding: 0px;
+      li{
+        border-bottom: 2px solid var(--comic-black);
+        list-style: none;
+        padding: 0.5rem 0.5rem;
+        white-space: pre-line;
+        cursor: pointer;
+        &:hover{
+          background-color: var(--third-100);
+          transform: scale(1.05);
+        }
+      }
+    }
+  }
 }
 
 // Pratbubbla

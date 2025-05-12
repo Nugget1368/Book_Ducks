@@ -26,7 +26,7 @@ export class RenderPageBuilder {
         document.querySelector("body > header").after(div);
     }
 
-    static renderProfileAside(){
+    static renderProfileAside() {
         let aside = document.createElement("aside");
         aside.classList.add("speech-bubble");
         aside.innerHTML = `
@@ -38,7 +38,7 @@ export class RenderPageBuilder {
         document.querySelector("body > div.row").prepend(aside);
     }
 
-    static renderSelect(){
+    static renderSelect() {
         let select = document.createElement("select");
         select.id = "sort";
         select.name = "sort";
@@ -50,6 +50,22 @@ export class RenderPageBuilder {
         <option value="author-down">Author Down (Z-A)</option>
         `;
         document.querySelector("section.books").prepend(select);
+    }
+
+    static renderSelectRatings(destination = "") {
+        let select = document.createElement("select");
+        select.id = "sort-ratings";
+        select.name = "sort-ratings";
+        select.innerHTML = `
+        <option value="default">Sort...</option>
+        <option value="title-up">Title (A-Z)</option>
+        <option value="title-down">Title Down (Z-A)</option>
+        <option value="author-up">Author Up (A-Z)</option>
+        <option value="author-down">Author Down (Z-A)</option>
+        <option value="rating-up">Rating Up</option>
+        <option value="rating-down">Rating Down</option>
+        `;
+        return select;
     }
 
     static resetDOM() {

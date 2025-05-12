@@ -28,10 +28,17 @@ export class Library {
         // return response.data.data;
     }
 
-    async getRating(id = "") {
+    getRating(bookid = "") {
         /// TODO: Edit this
-        // let response = await axios.get(API.getApiUrl() + '/ratings/' + id);
-        // return response.data;
+        let rating = this.ratings.find(rating => rating.bookId === this.book.id);
+        return rating;
+    }
+
+    getUserRatings(profileId = "") {
+        let ratings = this.ratings.filter(rating => rating.ratings.find(r => r.profileId === profileId));
+        /// User this
+        // let userRatings = ratings.map(rating => rating.ratings.find(r => r.profileId === profileId));
+        return ratings;
     }
 
     async updateRating(id = "", newRating = { value: 0, profile: this.profile.id, profileId: this.profile.id }) {

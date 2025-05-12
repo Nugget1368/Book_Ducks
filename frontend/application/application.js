@@ -65,9 +65,11 @@ export class Application {
             await this.sayHello(this.profile.username);
         }
         await this.renderBooks(this.library.books, this.isLoggedIn);
+        let ratings = this.library.getUserRatings(this.profile.id);
     }
 
     async renderProfile() {
+        /// TODO: Clean this
         RenderPageBuilder.renderProfile();
         if (await Auth.isAuthenticated() === true) {
             RenderPageBuilder.renderProfileAside();
@@ -80,8 +82,22 @@ export class Application {
             article.innerHTML = `
                 <p><b>Username:</b> ${this.profile.username}</p>
                 <p><b>Email:</b> ${this.profile.email}</p>`;
+            let myRatedBooks = document.createElement("article");
+            myRatedBooks.id = "my-rated-books";
+            let ratedList = document.createElement("ul");
+            let myRatedBooksHeader = document.createElement("h3");
+            myRatedBooksHeader.textContent = "Your Ratings";
+            let select = RenderPageBuilder.renderSelectRatings();
+            myRatedBooks.append(myRatedBooksHeader, select, ratedList);
+            let ratings = this.library.getUserRatings(this.profile.id);
+            ratings.forEach(rating => {
+                let userRating = rating.ratings.find(r => r.profileId === this.profile.id).value;
+                let li = document.createElement("li");
+                li.textContent = `${rating.book.title} (${rating.book.author}) \r\nRated: ${userRating}/10 Stars`;
+                ratedList.append(li);
+            });
             let section = document.querySelector("aside section");
-            section.append(article);
+            section.append(article, myRatedBooks);
             await this.renderBooks(this.profile.library, true);
             document.querySelector("select#sort").addEventListener("change", async (event) => {
                 event.preventDefault();

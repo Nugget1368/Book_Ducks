@@ -261,6 +261,20 @@ section select {
   font-size: 1rem;
   font-family: "Comic Sans MS", "Comic Neue", cursive;
 }
+section#profile ul {
+  padding: 0px;
+}
+section#profile ul li {
+  border-bottom: 2px solid var(--comic-black);
+  list-style: none;
+  padding: 0.5rem 0.5rem;
+  white-space: pre-line;
+  cursor: pointer;
+}
+section#profile ul li:hover {
+  background-color: var(--third-100);
+  transform: scale(1.05);
+}
 
 .speech-bubble {
   background: var(--comic-white);
