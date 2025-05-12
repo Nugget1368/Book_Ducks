@@ -27,9 +27,11 @@ export class Application {
             let rating = document.querySelector("form input[type=radio]:checked").value;
             rating = parseInt(rating);
             if (rating !== null || rating !== undefined || rating !== "") {
+                /// TODO: Fix this
                 let response = await this.library.updateRating(id, { value: rating, profile: this.profile.id, profileId: this.profile.id });
                 if (response !== false) {
                     document.querySelector("dialog[data-modal]").close();
+                    /// TODO: Fix this
                     location.reload();
                 }
             }

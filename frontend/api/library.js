@@ -35,6 +35,7 @@ export class Library {
     }
 
     async updateRating(id = "", newRating = { value: 0, profile: this.profile.id, profileId: this.profile.id }) {
+        /// TODO: Edit this
         let rating = this.ratings.find(rating => rating.documentId === id);
         let newprofile = true;
         if (rating.ratings.find(r => r.profileId === newRating.profileId)) {
