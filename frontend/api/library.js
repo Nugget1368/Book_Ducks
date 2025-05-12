@@ -35,7 +35,6 @@ export class Library {
     }
 
     async updateRating(id = "", newRating = { value: 0, profile: this.profile.id, profileId: this.profile.id }) {
-        // Input: await this.library.updateRating("phjlv9iyc54nn9mc7mko0f79", { value: 4, profileId: this.profile.id });
         let rating = this.ratings.find(rating => rating.documentId === id);
         let newprofile = true;
         if (rating.ratings.find(r => r.profileId === newRating.profileId)) {
@@ -87,6 +86,4 @@ export class Library {
             return false;
         }
     }
-
-
 }
