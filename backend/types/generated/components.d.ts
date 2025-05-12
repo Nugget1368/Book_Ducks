@@ -8,7 +8,7 @@ export interface RatingValue extends Struct.ComponentSchema {
     icon: 'star';
   };
   attributes: {
-    profiles: Schema.Attribute.Relation<'oneToMany', 'api::profile.profile'>;
+    profileId: Schema.Attribute.String;
     value: Schema.Attribute.Decimal &
       Schema.Attribute.SetMinMax<
         {

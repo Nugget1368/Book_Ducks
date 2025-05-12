@@ -15,3 +15,8 @@ document.querySelector("header #home").addEventListener("click", async ()=>{
 document.querySelector("header #my-pages").addEventListener("click", async ()=>{
     await app.renderProfile();
 })
+
+document.querySelector("[data-modal] [data-close-modal]").addEventListener("click", async () => {
+    let modal = document.querySelector(`[data-modal]`);
+    modal.close();
+})

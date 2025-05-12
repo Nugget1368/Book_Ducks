@@ -8,7 +8,7 @@ export class Application {
     constructor() {
         this.profile = null;
         this.isLoggedIn = false;
-        this.books = [];
+        this.library = null;
     }
 
     async start() {
@@ -16,9 +16,24 @@ export class Application {
         if (this.isLoggedIn === true) {
             await this.login();
         }
-        let data = await Library.getBooks();
-        this.books = data.data;
+        this.library = new Library();
+        /// TODO: Fix this, cannot have to async methods on the same line
+        await this.library.setBooks();
+        await this.library.setRatings();
         this.renderHome();
+        document.querySelector("form").addEventListener("submit", async (event) => {
+            event.preventDefault();
+            let id = document.querySelector("form").id;
+            let rating = document.querySelector("form input[type=radio]:checked").value;
+            rating = parseInt(rating);
+            if(rating !== null || rating!== undefined || rating !== ""){
+                let response = await this.library.updateRating(id, { value: rating, profileId: this.profile.id });
+                if(response !== false){
+                    document.querySelector("dialog[data-modal]").close();
+                    location.reload();
+                }
+            }
+        })
     }
 
     async sayHello(username = "") {
@@ -44,10 +59,10 @@ export class Application {
 
     async renderHome() {
         RenderPageBuilder.renderIndex();
-        if(this.isLoggedIn === true) {
+        if (this.isLoggedIn === true) {
             await this.sayHello(this.profile.username);
         }
-        await this.renderBooks(this.books, this.isLoggedIn);
+        await this.renderBooks(this.library.books, this.isLoggedIn);
     }
 
     async renderProfile() {
@@ -121,11 +136,40 @@ export class Application {
                             card.querySelector(`button#save-book-${book.documentId}`).classList.add("bookmarked");
                     }
                 });
+                card.querySelector("[data-open-modal]").addEventListener("click", async () => {
+                    let modal = document.querySelector(`[data-modal]`);
+                    modal.querySelector("h3").textContent = book.title;
+                    let content = modal.querySelector("div.content");
+                    let form = modal.querySelector("form");
+                    /// TODO: Bryt ut, 'on-open' eller 'on-close' hos modal
+                    let removeElements = content.querySelectorAll(":not(h3, form, form *)");
+                    let oldimg = modal.querySelector("img");
+                    if(oldimg){
+                        oldimg.remove();
+                    }
+                    if(removeElements){
+                        removeElements.forEach(e => e.remove());
+                    }
+                    let author = document.createElement("h4");
+                    author.textContent = book.author;
+                    form.before(author);
+                    let description = document.createElement("p");
+                    description.textContent = book.description;
+                    form.before(description);
+                    let rating = document.createElement("p");
+                    rating.textContent = "Rating: " + book.rating.average + "/10 stars";
+                    form.before(rating);
+                    let img = document.createElement("img");
+                    img.src = card.querySelector("img").src;
+                    content.before(img);                    
+                    modal.querySelector("form").id = book.rating.documentId;
+                    modal.showModal();
+                })
             }
         });
     }
 
-    renderLogout(){
+    renderLogout() {
         let a = document.querySelector("a#login-page");
         a.innerHTML = `<span class="material-symbols-outlined">
                     logout
