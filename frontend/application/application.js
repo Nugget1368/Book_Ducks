@@ -109,8 +109,8 @@ export class Application {
                 }
                 else {
                     command[1] === "high" ?
-                        Sorting.sortNumberHigh(this.library.ratedBooks, "rating", "value") :
-                        Sorting.sortNumberLow(this.library.ratedBooks, "rating", "value");
+                        Sorting.sortNumberLow(this.library.ratedBooks, "rating", "value") :
+                        Sorting.sortNumberHigh(this.library.ratedBooks, "rating", "value");
                 }
                 // ||
                 let ul = this.renderMyRatedBooks(this.library.ratedBooks);
@@ -148,13 +148,17 @@ export class Application {
                     event.preventDefault();
                     if (savedBook === true) {
                         let result = await this.profile.removeFromLibrary(book.documentId);
-                        if (result === true)
+                        if (result === true) {
                             card.querySelector(`button#save-book-${book.documentId}`).classList.remove("bookmarked");
+                            savedBook = false;
+                        }
                     }
                     else {
                         let result = await this.addToLibrary(book);
-                        if (result === true)
+                        if (result === true) {
                             card.querySelector(`button#save-book-${book.documentId}`).classList.add("bookmarked");
+                            savedBook = true;
+                        }
                     }
                 });
                 //Modal
