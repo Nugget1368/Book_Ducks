@@ -32,9 +32,9 @@ body > header {
   position: sticky;
   top: 0;
   z-index: 1000;
-  h1{
+  h1 {
     padding: 1rem;
-    a{
+    a {
       text-decoration: none;
       color: var(--comic-white);
     }
@@ -101,17 +101,33 @@ section {
   &.column {
     @include flex(column, flex-start, center);
   }
-  .content{
+  .content {
     @include flex();
     gap: 1rem;
     max-width: 1500px;
   }
-  select{
+  select {
     padding: 0.5rem;
     border: 3px solid var(--comic-black);
     border-radius: 8px;
     font-size: 1rem;
     font-family: "Comic Sans MS", "Comic Neue", cursive;
+  }
+  &#profile{
+    ul{
+      padding: 0px;
+      li{
+        border-bottom: 2px solid var(--comic-black);
+        list-style: none;
+        padding: 0.5rem 0.5rem;
+        white-space: pre-line;
+        cursor: pointer;
+        &:hover{
+          background-color: var(--third-100);
+          transform: scale(1.05);
+        }
+      }
+    }
   }
 }
 
@@ -187,10 +203,8 @@ article.book {
   p {
     color: var(--black-700);
   }
-  button{
+  button {
     position: absolute;
-    right: 8px;
-    bottom: 8px;
     background-color: var(--comic-white);
     border-radius: 50%;
     border: 2px solid var(--primary-600);
@@ -198,6 +212,15 @@ article.book {
     color: var(--primary-600);
     font-size: 2rem;
     cursor: pointer;
+    &:nth-child(1) {
+      bottom: 0.5rem;
+      right: 0.5rem;
+    }
+    &:nth-child(2) {
+      bottom: 0.5rem;
+      right: 4rem;
+    }
+
     &:hover {
       background-color: var(--primary-200);
     }
@@ -206,7 +229,7 @@ article.book {
       box-shadow: 0px 0px 0px 2px var(--secondary-600);
       background-color: var(--secondary-500);
     }
-    &.bookmarked{
+    &.bookmarked {
       background-color: var(--yellow-500);
       color: var(--comic-black);
       border-color: var(--comic-white);
@@ -309,13 +332,13 @@ form {
   }
 }
 
-.row{
+.row {
   @include flex(row);
   gap: 2rem;
-  aside{
-    header{
+  aside {
+    header {
       border-bottom: 2px solid var(--comic-black);
-      h2{
+      h2 {
         margin: 1rem 0;
         font-size: 1.5rem;
         color: var(--comic-black);
@@ -323,24 +346,63 @@ form {
       }
     }
     font-weight: 400;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: "Courier New", Courier, monospace;
     position: sticky;
     top: 5.5rem;
     left: 16px;
-    flex:1;
+    flex: 1;
     height: 100%;
     @include flex(column);
     gap: 1rem;
-    b{
+    b {
       font-weight: 900;
     }
-    section{
-      margin:0px;
-      padding:0px;
+    section {
+      margin: 0px;
+      padding: 0px;
       text-align: start;
     }
   }
-  main{
-    flex:3;
+  main {
+    flex: 3;
+  }
+}
+
+#not-logged-in {
+  align-self: center;
+}
+
+dialog {
+  button[data-close-modal] {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+  }
+  h3,
+  h4,
+  p {
+    margin: 0;
+  }
+  fieldset {
+    @include flex();
+    gap: 1rem;
+    div {
+      @include flex(column);
+    }
+  }
+  img {
+    width: 200px;
+    height: 300px;
+  }
+  .content {
+    >*{
+      margin-top: 0.5rem;
+    }
+  }
+  form{
+    box-shadow: none;
+    fieldset{
+      border: none;
+    }
   }
 }

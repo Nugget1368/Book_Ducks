@@ -7,6 +7,7 @@ export class BookBuilder {
         this.image = null;
         this.pages = 0;
         this.releaseDate = null;
+        this.rating = null;
     }
 
     setTitle(title) {
@@ -36,6 +37,11 @@ export class BookBuilder {
 
     setReleaseDate(releaseDate) {
         this.releaseDate = releaseDate;
+        return this;
+    }
+
+    setRating(rating) {
+        this.rating = rating;
         return this;
     }
 
