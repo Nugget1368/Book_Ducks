@@ -183,47 +183,20 @@ export class Application {
                 //Modal
                 card.querySelector("[data-open-modal]").addEventListener("click", async () => {
                     let modal = document.querySelector(`[data-modal]`);
-                    modal.querySelector("h3").textContent = book.title;
-                    let content = modal.querySelector("div.content");
-                    let form = modal.querySelector("form");
-                    /// TODO: Bryt ut, 'on-open' eller 'on-close' hos modal
-                    /// TODO: Lägg i renderPage
-                    // let removeElements = mcontent.querySelectorAll(":not(h3, form, form *)");
-                    // let oldimg = modal.querySelector("img");
-                    // if (oldimg) {
-                    //     oldimg.remove();
-                    // }
-                    // if (removeElements) {
-                    //     removeElements.forEach(e => e.remove());
-                    // }
-                    // let author = document.createElement("h4");
-                    // author.textContent = book.author;
-                    // form.before(author);
-                    // let description = document.createElement("p");
-                    // description.textContent = book.description;
-                    // form.before(description);
-                    // let rating = document.createElement("p");
-                    // rating.textContent = "Rating: " + book.rating.average + "/10 stars";
-                    // form.before(rating);
-                    // let img = document.createElement("img");
-                    // img.src = card.querySelector("img").src;
-                    // mcontent.before(img);
-                    let builder = RenderPageBuilder.renderBook(book, card.querySelector("img").src);
-                    form.before(builder.author, builder.description, builder.rating);
-                    content.before(builder.img);
-                    form.id = book.rating.documentId;
+                    this.renderModal(book, card.querySelector("img").src);
                     modal.showModal();
                 })
             }
         });
     }
 
-    renderModal(book = {}) {
+    renderModal(book = {}, img = "") {
         let modal = document.querySelector(`[data-modal]`);
         modal.querySelector("h3").textContent = book.title;
         let content = modal.querySelector("div.content");
         let form = modal.querySelector("form");
-        let nodeList = RenderPageBuilder.renderBook(book, card.querySelector("img").src)
+        form.id = book.rating.documentId;
+        let nodeList = RenderPageBuilder.renderBook(book, img);
         form.before(nodeList.author, nodeList.description, nodeList.rating);
         content.before(nodeList.img);
     }
