@@ -23,14 +23,7 @@ export class Library {
         return this;
     }
 
-    async getBook(id = "") {
-        /// TODO: Edit this
-        // let response = await axios.get(API.getApiUrl() + '/books/' + id + "?populate=users");
-        // return response.data.data;
-    }
-
     getRating(bookid = "") {
-        /// TODO: Edit this
         let rating = this.ratings.find(rating => rating.bookId === this.book.id);
         return rating;
     }

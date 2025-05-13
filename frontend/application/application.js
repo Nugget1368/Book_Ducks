@@ -158,6 +158,7 @@ export class Application {
                     let content = modal.querySelector("div.content");
                     let form = modal.querySelector("form");
                     /// TODO: Bryt ut, 'on-open' eller 'on-close' hos modal
+                    /// TODO: Lägg i renderPage
                     let removeElements = content.querySelectorAll(":not(h3, form, form *)");
                     let oldimg = modal.querySelector("img");
                     if (oldimg) {
