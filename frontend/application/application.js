@@ -21,6 +21,9 @@ export class Application {
             await this.login();
         }
         this.renderHome();
+    }
+
+    async formHandler() {
         /// TODO : Clean This
         document.querySelector("form").addEventListener("submit", async (event) => {
             event.preventDefault();
@@ -32,8 +35,8 @@ export class Application {
                 let response = await this.library.updateRating(id, { value: rating, profile: this.profile.id, profileId: this.profile.id });
                 if (response !== false) {
                     document.querySelector("dialog[data-modal]").close();
-                    /// TODO: Fix this
-                    location.reload();
+                    this.library.setUserRatings(this.profile.id);
+                    await this.renderBooks(this.library.books, this.isLoggedIn);
                 }
             }
         })
@@ -58,6 +61,7 @@ export class Application {
         let library = await this.profile.getLibrary();
         this.library.setUserRatings(this.profile.id);
         this.profile.setLibrary(library);
+        await this.formHandler();
         this.renderLogout();
     }
 
@@ -103,10 +107,10 @@ export class Application {
                         Sorting.sortStringUp(this.library.ratedBooks, "book", command[0]) :
                         Sorting.sortStringDown(this.library.ratedBooks, "book", command[0]);
                 }
-                else{
+                else {
                     command[1] === "high" ?
-                    Sorting.sortNumberHigh(this.library.ratedBooks, "rating", "value") :
-                    Sorting.sortNumberLow(this.library.ratedBooks, "rating", "value");
+                        Sorting.sortNumberHigh(this.library.ratedBooks, "rating", "value") :
+                        Sorting.sortNumberLow(this.library.ratedBooks, "rating", "value");
                 }
                 // ||
                 let ul = this.renderMyRatedBooks(this.library.ratedBooks);
@@ -128,6 +132,8 @@ export class Application {
     }
 
     async renderBooks(books = [], isLoggedIn = false) {
+        let content = document.querySelector(".books .content");
+        content.innerHTML = ``;
         books.forEach(book => {
             let card = Factory.buildBookCard(book, isLoggedIn);
             document.querySelector(".books .content").append(card);
@@ -155,11 +161,11 @@ export class Application {
                 card.querySelector("[data-open-modal]").addEventListener("click", async () => {
                     let modal = document.querySelector(`[data-modal]`);
                     modal.querySelector("h3").textContent = book.title;
-                    let content = modal.querySelector("div.content");
+                    let mcontent = modal.querySelector("div.content");
                     let form = modal.querySelector("form");
                     /// TODO: Bryt ut, 'on-open' eller 'on-close' hos modal
                     /// TODO: Lägg i renderPage
-                    let removeElements = content.querySelectorAll(":not(h3, form, form *)");
+                    let removeElements = mcontent.querySelectorAll(":not(h3, form, form *)");
                     let oldimg = modal.querySelector("img");
                     if (oldimg) {
                         oldimg.remove();
@@ -178,7 +184,7 @@ export class Application {
                     form.before(rating);
                     let img = document.createElement("img");
                     img.src = card.querySelector("img").src;
-                    content.before(img);
+                    mcontent.before(img);
                     modal.querySelector("form").id = book.rating.documentId;
                     modal.showModal();
                 })

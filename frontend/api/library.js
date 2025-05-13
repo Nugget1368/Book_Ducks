@@ -29,6 +29,7 @@ export class Library {
     }
 
     setUserRatings(profileId = "") {
+        this.ratedBooks = [];
         let ratings = this.ratings.filter(rating => rating.ratings.find(r => r.profileId === profileId));
         ratings.forEach(r =>{
             this.ratedBooks.push({
@@ -70,9 +71,13 @@ export class Library {
             total += rating.ratings[i].value;
         }
         rating.average = Math.round((total / rating.ratings.length) * 10) / 10;
-
+        //Sync locally
         this.ratings = this.ratings.filter(rating => rating.documentId !== id);
         this.ratings.push(rating);
+        let book = this.books.filter(book => book.documentId === rating.book.documentId);
+        book[0].rating.average = rating.average;
+        this.books.indexOf(book[0]) > -1 ? this.books[this.books.indexOf(book[0])] = book[0] : -1;
+
         let data = {
             data: {
                 average: rating.average,
