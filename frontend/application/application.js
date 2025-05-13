@@ -36,21 +36,14 @@ export class Application {
                 if (response !== false) {
                     document.querySelector("dialog[data-modal]").close();
                     this.library.setUserRatings(this.profile.id);
-                    this.profile.library.map(book => {
-                        let savedBook = this.library.books.find(b => b.documentId === book.documentId);
-                        if(savedBook){
-                            book.rating.average = savedBook.rating.average;
-                        }
-                        return book;
-                    })
-                    let section = document.querySelector("aside section");
-                    if(section){
-                        console.log("Hello?");
-                        let ul = this.renderMyRatedBooks(this.library.ratedBooks);
+                    this.syncLibrary();
+                    let section = document.querySelector("section#profile");
+                    if (section) {
+                        let ul = this.renderMyRatedBooks();
                         section.querySelector("ul").replaceWith(ul);
                         await this.renderBooks(this.profile.library, true);
                     }
-                    else{
+                    else {
                         await this.renderBooks(this.library.books, this.isLoggedIn);
                     }
                 }
@@ -64,6 +57,16 @@ export class Application {
         h2.textContent = `Welcome ${username}!`;
         h2.classList.add("comic-bubble");
         header.append(h2);
+    }
+
+    syncLibrary() {
+        this.profile.library.map(book => {
+            let savedBook = this.library.books.find(b => b.documentId === book.documentId);
+            if (savedBook) {
+                book.rating.average = savedBook.rating.average;
+            }
+            return book;
+        });
     }
 
     async addToLibrary(book = {}) {
@@ -149,10 +152,8 @@ export class Application {
 
     async renderBooks(books = [], isLoggedIn = false) {
         let content = document.querySelector(".books .content");
-        console.log(content);
         content.innerHTML = ``;
         books.forEach(book => {
-            console.log(book);
             let card = Factory.buildBookCard(book, isLoggedIn);
             content.append(card);
             if (isLoggedIn === true) {
@@ -183,35 +184,48 @@ export class Application {
                 card.querySelector("[data-open-modal]").addEventListener("click", async () => {
                     let modal = document.querySelector(`[data-modal]`);
                     modal.querySelector("h3").textContent = book.title;
-                    let mcontent = modal.querySelector("div.content");
+                    let content = modal.querySelector("div.content");
                     let form = modal.querySelector("form");
                     /// TODO: Bryt ut, 'on-open' eller 'on-close' hos modal
                     /// TODO: Lägg i renderPage
-                    let removeElements = mcontent.querySelectorAll(":not(h3, form, form *)");
-                    let oldimg = modal.querySelector("img");
-                    if (oldimg) {
-                        oldimg.remove();
-                    }
-                    if (removeElements) {
-                        removeElements.forEach(e => e.remove());
-                    }
-                    let author = document.createElement("h4");
-                    author.textContent = book.author;
-                    form.before(author);
-                    let description = document.createElement("p");
-                    description.textContent = book.description;
-                    form.before(description);
-                    let rating = document.createElement("p");
-                    rating.textContent = "Rating: " + book.rating.average + "/10 stars";
-                    form.before(rating);
-                    let img = document.createElement("img");
-                    img.src = card.querySelector("img").src;
-                    mcontent.before(img);
-                    modal.querySelector("form").id = book.rating.documentId;
+                    // let removeElements = mcontent.querySelectorAll(":not(h3, form, form *)");
+                    // let oldimg = modal.querySelector("img");
+                    // if (oldimg) {
+                    //     oldimg.remove();
+                    // }
+                    // if (removeElements) {
+                    //     removeElements.forEach(e => e.remove());
+                    // }
+                    // let author = document.createElement("h4");
+                    // author.textContent = book.author;
+                    // form.before(author);
+                    // let description = document.createElement("p");
+                    // description.textContent = book.description;
+                    // form.before(description);
+                    // let rating = document.createElement("p");
+                    // rating.textContent = "Rating: " + book.rating.average + "/10 stars";
+                    // form.before(rating);
+                    // let img = document.createElement("img");
+                    // img.src = card.querySelector("img").src;
+                    // mcontent.before(img);
+                    let builder = RenderPageBuilder.renderBook(book, card.querySelector("img").src);
+                    form.before(builder.author, builder.description, builder.rating);
+                    content.before(builder.img);
+                    form.id = book.rating.documentId;
                     modal.showModal();
                 })
             }
         });
+    }
+
+    renderModal(book = {}) {
+        let modal = document.querySelector(`[data-modal]`);
+        modal.querySelector("h3").textContent = book.title;
+        let content = modal.querySelector("div.content");
+        let form = modal.querySelector("form");
+        let nodeList = RenderPageBuilder.renderBook(book, card.querySelector("img").src)
+        form.before(nodeList.author, nodeList.description, nodeList.rating);
+        content.before(nodeList.img);
     }
 
     renderMyRatedBooks() {

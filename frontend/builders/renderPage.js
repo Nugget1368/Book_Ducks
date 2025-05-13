@@ -53,6 +53,18 @@ export class RenderPageBuilder {
         return myRatedBooks;
     }
 
+    static renderBook(book = {}, imgSrc = "") {
+        let author = document.createElement("h4");
+        author.textContent = book.author;
+        let description = document.createElement("p");
+        description.textContent = book.description;
+        let rating = document.createElement("p");
+        rating.textContent = "Rating: " + book.rating.average + "/10 stars";
+        let img = document.createElement("img");
+        img.src = imgSrc;
+        return { author, description, rating, img };
+    }
+
     static renderSelect() {
         let select = document.createElement("select");
         select.id = "sort";
