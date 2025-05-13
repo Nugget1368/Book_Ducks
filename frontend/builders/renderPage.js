@@ -26,30 +26,71 @@ export class RenderPageBuilder {
         document.querySelector("body > header").after(div);
     }
 
-    static renderProfileAside(){
+    static renderProfileAside(username = "", email = "") {
         let aside = document.createElement("aside");
         aside.classList.add("speech-bubble");
         aside.innerHTML = `
         <header>
             <h2>My Profile</h2>
         </header>
-        <section id="profile"></section>
-        `;
+        <section id="profile">
+            <article>
+                <p><b>Username:</b> ${username}</p>
+                <p><b>Email:</b> ${email}</p>
+            </article >
+        </section >
+            `;
         document.querySelector("body > div.row").prepend(aside);
     }
 
-    static renderSelect(){
+    static renderMyRatedBooks() {
+        let myRatedBooks = document.createElement("article");
+        myRatedBooks.id = "my-rated-books";
+        let myRatedBooksHeader = document.createElement("h3");
+        myRatedBooksHeader.textContent = "Your Ratings";
+        let select = RenderPageBuilder.renderSelectRatings();
+        myRatedBooks.append(myRatedBooksHeader, select);
+        return myRatedBooks;
+    }
+
+    static renderBook(book = {}, imgSrc = "") {
+        let author = document.createElement("h4");
+        author.textContent = book.author;
+        let description = document.createElement("p");
+        description.textContent = book.description;
+        let rating = document.createElement("p");
+        rating.textContent = "Rating: " + book.rating.average + "/10 stars";
+        let img = document.createElement("img");
+        img.src = imgSrc;
+        return { author, description, rating, img };
+    }
+
+    static renderSelect() {
         let select = document.createElement("select");
         select.id = "sort";
         select.name = "sort";
+        select.innerHTML = `<option value="default">Sort...</option>
+        <option value="title-up">Title (A-Z)</option>
+        <option value="title-down">Title Down (Z-A)</option>
+        <option value="author-up">Author Up (A-Z)</option>
+        <option value="author-down">Author Down (Z-A)</option>`;
+        document.querySelector("section.books").prepend(select);
+    }
+
+    static renderSelectRatings() {
+        let select = document.createElement("select");
+        select.id = "sort-ratings";
+        select.name = "sort-ratings";
         select.innerHTML = `
         <option value="default">Sort...</option>
         <option value="title-up">Title (A-Z)</option>
         <option value="title-down">Title Down (Z-A)</option>
         <option value="author-up">Author Up (A-Z)</option>
         <option value="author-down">Author Down (Z-A)</option>
+        <option value="rating-high">Rating High</option>
+        <option value="rating-low">Rating Low</option>
         `;
-        document.querySelector("section.books").prepend(select);
+        return select;
     }
 
     static resetDOM() {

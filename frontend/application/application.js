@@ -12,25 +12,40 @@ export class Application {
     }
 
     async start() {
-        this.isLoggedIn = await Auth.isAuthenticated();
-        if (this.isLoggedIn === true) {
-            await this.login();
-        }
         this.library = new Library();
         /// TODO: Fix this, cannot have to async methods on the same line
         await this.library.setBooks();
         await this.library.setRatings();
+        this.isLoggedIn = await Auth.isAuthenticated();
+        if (this.isLoggedIn === true) {
+            await this.login();
+        }
         this.renderHome();
+    }
+
+    async formHandler() {
+        /// TODO : Clean This
         document.querySelector("form").addEventListener("submit", async (event) => {
             event.preventDefault();
             let id = document.querySelector("form").id;
             let rating = document.querySelector("form input[type=radio]:checked").value;
             rating = parseInt(rating);
-            if(rating !== null || rating!== undefined || rating !== ""){
-                let response = await this.library.updateRating(id, { value: rating, profileId: this.profile.id });
-                if(response !== false){
+            if (rating !== null || rating !== undefined || rating !== "") {
+                /// TODO: Fix this
+                let response = await this.library.updateRating(id, { value: rating, profile: this.profile.id, profileId: this.profile.id });
+                if (response !== false) {
                     document.querySelector("dialog[data-modal]").close();
-                    location.reload();
+                    this.library.setUserRatings(this.profile.id);
+                    this.syncLibrary();
+                    let section = document.querySelector("section#profile");
+                    if (section) {
+                        let ul = this.renderMyRatedBooks();
+                        section.querySelector("ul").replaceWith(ul);
+                        await this.renderBooks(this.profile.library, true);
+                    }
+                    else {
+                        await this.renderBooks(this.library.books, this.isLoggedIn);
+                    }
                 }
             }
         })
@@ -44,6 +59,16 @@ export class Application {
         header.append(h2);
     }
 
+    syncLibrary() {
+        this.profile.library.map(book => {
+            let savedBook = this.library.books.find(b => b.documentId === book.documentId);
+            if (savedBook) {
+                book.rating.average = savedBook.rating.average;
+            }
+            return book;
+        });
+    }
+
     async addToLibrary(book = {}) {
         return await this.profile.addToLibrary(book);
     }
@@ -53,7 +78,9 @@ export class Application {
         this.profile = new Profile();
         this.profile.setEmail(user.email).setId(user.documentId).setUsername(user.username);
         let library = await this.profile.getLibrary();
+        this.library.setUserRatings(this.profile.id);
         this.profile.setLibrary(library);
+        await this.formHandler();
         this.renderLogout();
     }
 
@@ -66,37 +93,47 @@ export class Application {
     }
 
     async renderProfile() {
+        /// TODO: Clean this
         RenderPageBuilder.renderProfile();
         if (await Auth.isAuthenticated() === true) {
-            RenderPageBuilder.renderProfileAside();
+            RenderPageBuilder.renderProfileAside(this.profile.username, this.profile.email);
             RenderPageBuilder.renderSelect();
-            let article;
-            if (!document.querySelector("aside article"))
-                article = document.createElement("article");
-            else
-                article = document.querySelector("aside article");
-            article.innerHTML = `
-                <p><b>Username:</b> ${this.profile.username}</p>
-                <p><b>Email:</b> ${this.profile.email}</p>`;
+            //My Rated Books
+            let myRatedBooks = RenderPageBuilder.renderMyRatedBooks();
+            let ratedBooksList = this.renderMyRatedBooks();
             let section = document.querySelector("aside section");
-            section.append(article);
+            myRatedBooks.append(ratedBooksList);
+            section.innerHTML = "";
+            section.append(myRatedBooks);
+            //Saved Books
             await this.renderBooks(this.profile.library, true);
+            //Sort Saved Books
             document.querySelector("select#sort").addEventListener("change", async (event) => {
                 event.preventDefault();
-                if (event.target.value === "title-up") {
-                    Sorting.sortTitleUp(this.profile.library);
-                }
-                else if (event.target.value === "title-down") {
-                    Sorting.sortTitleDown(this.profile.library);
-                }
-                else if (event.target.value === "author-up") {
-                    Sorting.sortAuthorUp(this.profile.library);
-                }
-                else if (event.target.value === "author-down") {
-                    Sorting.sortAuthorDown(this.profile.library);
-                }
+                let command = event.target.value.split("-");
+                command[1] === "up" ?
+                    Sorting.sortStringUp(this.profile.library, command[0]) :
+                    Sorting.sortStringDown(this.profile.library, command[0]);
                 document.querySelector("section.books .content").innerHTML = ``;
                 await this.renderBooks(this.profile.library, true);
+            });
+            //Sort Rated Books
+            section.querySelector("select#sort-ratings").addEventListener("change", async (event) => {
+                event.preventDefault();
+                let command = event.target.value.split("-");
+                if (command[0] !== "rating") {
+                    command[1] === "up" ?
+                        Sorting.sortStringUp(this.library.ratedBooks, "book", command[0]) :
+                        Sorting.sortStringDown(this.library.ratedBooks, "book", command[0]);
+                }
+                else {
+                    command[1] === "high" ?
+                        Sorting.sortNumberLow(this.library.ratedBooks, "rating", "value") :
+                        Sorting.sortNumberHigh(this.library.ratedBooks, "rating", "value");
+                }
+                // ||
+                let ul = this.renderMyRatedBooks(this.library.ratedBooks);
+                section.querySelector("ul").replaceWith(ul);
             });
         }
         else {
@@ -114,59 +151,64 @@ export class Application {
     }
 
     async renderBooks(books = [], isLoggedIn = false) {
+        let content = document.querySelector(".books .content");
+        content.innerHTML = ``;
         books.forEach(book => {
             let card = Factory.buildBookCard(book, isLoggedIn);
-            document.querySelector(".books .content").append(card);
+            content.append(card);
             if (isLoggedIn === true) {
                 //Lägg in book direkt?
                 let savedBook = this.profile.library.find(b => b.documentId === book.documentId) ? true : false;
                 if (savedBook === true) {
                     card.querySelector(`button#save-book-${book.documentId}`).classList.add("bookmarked");
                 }
+                //Save book
                 card.querySelector(`button#save-book-${book.documentId}`).addEventListener("click", async (event) => {
                     event.preventDefault();
                     if (savedBook === true) {
                         let result = await this.profile.removeFromLibrary(book.documentId);
-                        if (result === true)
+                        if (result === true) {
                             card.querySelector(`button#save-book-${book.documentId}`).classList.remove("bookmarked");
+                            savedBook = false;
+                        }
                     }
                     else {
                         let result = await this.addToLibrary(book);
-                        if (result === true)
+                        if (result === true) {
                             card.querySelector(`button#save-book-${book.documentId}`).classList.add("bookmarked");
+                            savedBook = true;
+                        }
                     }
                 });
+                //Modal
                 card.querySelector("[data-open-modal]").addEventListener("click", async () => {
                     let modal = document.querySelector(`[data-modal]`);
-                    modal.querySelector("h3").textContent = book.title;
-                    let content = modal.querySelector("div.content");
-                    let form = modal.querySelector("form");
-                    /// TODO: Bryt ut, 'on-open' eller 'on-close' hos modal
-                    let removeElements = content.querySelectorAll(":not(h3, form, form *)");
-                    let oldimg = modal.querySelector("img");
-                    if(oldimg){
-                        oldimg.remove();
-                    }
-                    if(removeElements){
-                        removeElements.forEach(e => e.remove());
-                    }
-                    let author = document.createElement("h4");
-                    author.textContent = book.author;
-                    form.before(author);
-                    let description = document.createElement("p");
-                    description.textContent = book.description;
-                    form.before(description);
-                    let rating = document.createElement("p");
-                    rating.textContent = "Rating: " + book.rating.average + "/10 stars";
-                    form.before(rating);
-                    let img = document.createElement("img");
-                    img.src = card.querySelector("img").src;
-                    content.before(img);                    
-                    modal.querySelector("form").id = book.rating.documentId;
+                    this.renderModal(book, card.querySelector("img").src);
                     modal.showModal();
                 })
             }
         });
+    }
+
+    renderModal(book = {}, img = "") {
+        let modal = document.querySelector(`[data-modal]`);
+        modal.querySelector("h3").textContent = book.title;
+        let content = modal.querySelector("div.content");
+        let form = modal.querySelector("form");
+        form.id = book.rating.documentId;
+        let nodeList = RenderPageBuilder.renderBook(book, img);
+        form.before(nodeList.author, nodeList.description, nodeList.rating);
+        content.before(nodeList.img);
+    }
+
+    renderMyRatedBooks() {
+        let ul = document.createElement("ul");
+        this.library.ratedBooks.forEach(rating => {
+            let li = document.createElement("li");
+            li.textContent = `${rating.book.title} (${rating.book.author}) \r\nRated: ${rating.rating.value}/10 Stars`;
+            ul.append(li);
+        });
+        return ul;
     }
 
     renderLogout() {
