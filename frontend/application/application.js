@@ -36,7 +36,23 @@ export class Application {
                 if (response !== false) {
                     document.querySelector("dialog[data-modal]").close();
                     this.library.setUserRatings(this.profile.id);
-                    await this.renderBooks(this.library.books, this.isLoggedIn);
+                    this.profile.library.map(book => {
+                        let savedBook = this.library.books.find(b => b.documentId === book.documentId);
+                        if(savedBook){
+                            book.rating.average = savedBook.rating.average;
+                        }
+                        return book;
+                    })
+                    let section = document.querySelector("aside section");
+                    if(section){
+                        console.log("Hello?");
+                        let ul = this.renderMyRatedBooks(this.library.ratedBooks);
+                        section.querySelector("ul").replaceWith(ul);
+                        await this.renderBooks(this.profile.library, true);
+                    }
+                    else{
+                        await this.renderBooks(this.library.books, this.isLoggedIn);
+                    }
                 }
             }
         })
@@ -133,10 +149,12 @@ export class Application {
 
     async renderBooks(books = [], isLoggedIn = false) {
         let content = document.querySelector(".books .content");
+        console.log(content);
         content.innerHTML = ``;
         books.forEach(book => {
+            console.log(book);
             let card = Factory.buildBookCard(book, isLoggedIn);
-            document.querySelector(".books .content").append(card);
+            content.append(card);
             if (isLoggedIn === true) {
                 //Lägg in book direkt?
                 let savedBook = this.profile.library.find(b => b.documentId === book.documentId) ? true : false;

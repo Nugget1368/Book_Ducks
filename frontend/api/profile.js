@@ -39,6 +39,10 @@ export class Profile extends UserBuilder {
         }
     }
 
+    updateLibrary(library = []) {
+        this.library = library;
+    }
+
     async removeFromLibrary(bookId = "") {
         this.library = this.library.filter(book => book.documentId !== bookId);
         let newlibrary = this.library.map(book => book.documentId);
