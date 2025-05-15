@@ -29,9 +29,12 @@ export class Application {
         document.querySelector("form").addEventListener("submit", async (event) => {
             event.preventDefault();
             let id = document.querySelector("form").id;
-            let rating = document.querySelector("form input[type=radio]:checked").value;
-            rating = parseInt(rating);
-            if (rating !== null || rating !== undefined || rating !== "") {
+            let rating = document.querySelector("form input[type=radio]:checked");
+            if(!rating)
+                return;
+            rating = parseInt(rating.value);
+            /// TODO: Simplify Null-check, Only return is needed
+            if (rating !== null || rating !== undefined || rating !== "" || rating !== NaN) {
                 /// TODO: Fix this
                 let response = await this.library.updateRating(id, { value: rating, profile: this.profile.id, profileId: this.profile.id });
                 if (response !== false) {
