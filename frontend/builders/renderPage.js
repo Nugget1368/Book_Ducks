@@ -54,6 +54,7 @@ export class RenderPageBuilder {
     }
 
     static renderBook(book = {}, imgSrc = "") {
+        /// TODO: Move to Factory.js
         let author = document.createElement("h4");
         author.textContent = book.author;
         let description = document.createElement("p");

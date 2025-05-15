@@ -25,6 +25,7 @@ export class Application {
 
     async formHandler() {
         /// TODO : Clean This
+        /// TODO: Move to something like 'EventHandler.js'
         document.querySelector("form").addEventListener("submit", async (event) => {
             event.preventDefault();
             let id = document.querySelector("form").id;
@@ -108,6 +109,7 @@ export class Application {
             //Saved Books
             await this.renderBooks(this.profile.library, true);
             //Sort Saved Books
+        /// TODO: Move to something like 'EventHandler.js'
             document.querySelector("select#sort").addEventListener("change", async (event) => {
                 event.preventDefault();
                 let command = event.target.value.split("-");
@@ -118,6 +120,8 @@ export class Application {
                 await this.renderBooks(this.profile.library, true);
             });
             //Sort Rated Books
+            
+        /// TODO: Move to something like 'EventHandler.js'
             section.querySelector("select#sort-ratings").addEventListener("change", async (event) => {
                 event.preventDefault();
                 let command = event.target.value.split("-");
@@ -163,6 +167,8 @@ export class Application {
                     card.querySelector(`button#save-book-${book.documentId}`).classList.add("bookmarked");
                 }
                 //Save book
+                
+        /// TODO: Move to something like 'EventHandler.js'
                 card.querySelector(`button#save-book-${book.documentId}`).addEventListener("click", async (event) => {
                     event.preventDefault();
                     if (savedBook === true) {
@@ -191,6 +197,7 @@ export class Application {
     }
 
     renderModal(book = {}, img = "") {
+        /// TODO: Move to Factory.js or Renderpage.js
         let modal = document.querySelector(`[data-modal]`);
         modal.querySelector("h3").textContent = book.title;
         let content = modal.querySelector("div.content");
@@ -202,6 +209,7 @@ export class Application {
     }
 
     renderMyRatedBooks() {
+        /// TODO: Move to Factory.js
         let ul = document.createElement("ul");
         this.library.ratedBooks.forEach(rating => {
             let li = document.createElement("li");
@@ -212,6 +220,7 @@ export class Application {
     }
 
     renderLogout() {
+        /// TODO: Move to renderPage.js
         let a = document.querySelector("a#login-page");
         a.innerHTML = `<span class="material-symbols-outlined">
                     logout
