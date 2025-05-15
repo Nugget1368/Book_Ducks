@@ -130,6 +130,36 @@ body[theme=superred] {
   --third-900: var(--red-900);
 }
 
+h1 {
+  font-size: 60px;
+}
+
+h2 {
+  font-size: 28px;
+}
+
+h3 {
+  font-size: 22px;
+}
+
+h4 {
+  font-size: 18px;
+}
+
+p {
+  font-size: 16px;
+}
+
+body > header h1 {
+  font-size: 3rem;
+}
+body > header a#my-pages label, body > header a#login-page label {
+  font-size: 1.2rem;
+}
+body > header a#my-pages span, body > header a#login-page span {
+  font-size: 2rem;
+}
+
 .raster-bg, main,
 body {
   background-image: radial-gradient(var(--primary-500) 10%, transparent 11%);
@@ -396,7 +426,7 @@ button:active {
 form {
   display: flex;
   flex-flow: column;
-  justify-content: flex-start;
+  justify-content: space-around;
   align-items: stretch;
   gap: 1rem;
   background-color: var(--comic-white);
@@ -410,6 +440,7 @@ form label {
   display: flex;
   flex-flow: row wrap;
   gap: 1rem;
+  font-size: 1rem;
 }
 form fieldset {
   display: flex;
@@ -424,8 +455,41 @@ form fieldset div {
   justify-content: flex-start;
   align-items: stretch;
 }
+form fieldset.rating {
+  justify-content: center;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  font-family: "Comic Neue", cursive;
+}
+form fieldset.rating input[type=radio] {
+  display: none;
+}
+form fieldset.rating label {
+  padding: 0.5rem 0.8rem;
+  border: 2px solid black;
+  border-radius: 0.5rem;
+  background: #fff8dc;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 2px 2px 0 black;
+  transition: all 0.2s;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+form fieldset.rating label:hover {
+  background-color: #ffe066;
+}
+form fieldset.rating input[type=radio]:checked + label {
+  background-color: #ff5722;
+  color: white;
+  transform: scale(1.1);
+  box-shadow: 2px 2px 0 #222;
+  animation: pop 0.2s ease;
+}
 form label {
-  font-size: 1.5rem;
+  font-size: 1rem;
 }
 form input {
   font-family: "Comic Sans MS", "Comic Neue", cursive;
@@ -544,6 +608,18 @@ dialog h4,
 dialog p {
   margin: 0;
 }
+dialog h3 {
+  font-size: 2rem;
+}
+dialog h4 {
+  color: #302f2f;
+  font-size: 1.5rem;
+}
+dialog p {
+  font-family: "Comic Neue", "Comic Sans MS", cursive;
+  color: #302f2f;
+  font-size: 1.2rem;
+}
 dialog fieldset {
   display: flex;
   flex-flow: row wrap;
@@ -558,15 +634,42 @@ dialog fieldset div {
   align-items: stretch;
 }
 dialog img {
-  width: 200px;
-  height: 300px;
+  width: 250px;
+  height: 400px;
+}
+dialog .content {
+  max-width: 550px;
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-start;
+  align-items: stretch;
 }
 dialog .content > * {
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-start;
+  align-items: stretch;
   margin-top: 0.5rem;
 }
-dialog form {
+dialog .content form {
+  display: flex;
+  flex-flow: column;
+  justify-content: space-around;
+  align-items: stretch;
   box-shadow: none;
 }
-dialog form fieldset {
+dialog .content form fieldset {
   border: none;
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1.1);
+  }
 }/*# sourceMappingURL=style.css.map */
